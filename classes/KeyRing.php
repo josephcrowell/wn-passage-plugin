@@ -1,18 +1,18 @@
-<?php namespace KurtJensen\Passage\Classes;
+<?php namespace JosephCrowell\Passage\Classes;
 
 use Auth;
-use KurtJensen\Passage\Models\Key;
-use KurtJensen\Passage\Models\Variance;
+use JosephCrowell\Passage\Models\Key;
+use JosephCrowell\Passage\Models\Variance;
 
 /**
  * Passage Service Class
  * Provides methods for checking pemissions of front end users.
  *
- * @package kurtjensen\passage
+ * @package josephcrowell\passage
  * @author Kurt Jensen
  */
 class KeyRing {
-	use \October\Rain\Support\Traits\Singleton;
+	use \Winter\Storm\Support\Traits\Singleton;
 
 	public static $keys = null;
 	public static $groups = null;
@@ -22,7 +22,7 @@ class KeyRing {
 
 /**
  * Find active user who is logged in
- * @return object Rainlab\User\Model\User
+ * @return object Winter\User\Model\User
  */
 	public static function getUser() {
 		if (!$user = Auth::getUser()) {

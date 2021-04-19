@@ -3,26 +3,26 @@
 # ===================================
 
 # Record name
-name: kurtjensen.passage::lang.variance.model
+name: josephcrowell.passage::lang.variance.model
 
 # Model Form Field configuration
-form: $/kurtjensen/passage/models/variance/fields.yaml
+form: $/josephcrowell/passage/models/variance/fields.yaml
 
 # Model Class name
-modelClass: KurtJensen\Passage\Models\Variance
+modelClass: JosephCrowell\Passage\Models\Variance
 
 # Default redirect location
-defaultRedirect: kurtjensen/passage/variances
+defaultRedirect: josephcrowell/passage/variances
 
 # Create page
 create:
-    redirect: kurtjensen/passage/variances/update/:id
-    redirectClose: kurtjensen/passage/variances
+    redirect: josephcrowell/passage/variances/update/:id
+    redirectClose: josephcrowell/passage/variances
 
 # Update page
 update:
-    redirect: kurtjensen/passage/variances
-    redirectClose: kurtjensen/passage/variances
+    redirect: josephcrowell/passage/variances
+    redirectClose: josephcrowell/passage/variances
 
 # Preview page
 preview:

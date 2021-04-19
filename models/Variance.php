@@ -1,19 +1,19 @@
-<?php namespace KurtJensen\Passage\Models;
+<?php namespace JosephCrowell\Passage\Models;
 
-use KurtJensen\Passage\Models\Key;
+use JosephCrowell\Passage\Models\Key;
 use Lang;
 use Model;
-use RainLab\User\Models\User;
+use Winter\User\Models\User;
 
 /**
  * Variance Model
  */
 class Variance extends Model {
-	use \October\Rain\Database\Traits\Validation;
+	use \Winter\Storm\Database\Traits\Validation;
 	/**
 	 * @var string The database table used by the model.
 	 */
-	public $table = 'kurtjensen_passage_variances';
+	public $table = 'josephcrowell_passage_variances';
 
 	public $rules = [
 		'key_id' => 'required',
@@ -34,11 +34,11 @@ class Variance extends Model {
 	 * @var array Relations
 	 */
 	public $belongsTo = [
-		'key' => ['KurtJensen\Passage\Models\Key',
-			'table' => 'kurtjensen_passage_keys',
+		'key' => ['JosephCrowell\Passage\Models\Key',
+			'table' => 'josephcrowell_passage_keys',
 			'key' => 'key_id',
 			'otherkey' => 'id'],
-		'user' => ['RainLab\User\Models\User',
+		'user' => ['Winter\User\Models\User',
 			'table' => 'users',
 			'key' => 'user_id',
 			'otherkey' => 'id'],
@@ -59,13 +59,13 @@ class Variance extends Model {
 			where('user_id', $this->user_id)->
 			count() > 0;
 		if ($invalid) {
-			throw new \ValidationException(['unique_attribute' => Lang::get('kurtjensen.passage::lang.variance.error_duplicate')]);
+			throw new \ValidationException(['unique_attribute' => Lang::get('josephcrowell.passage::lang.variance.error_duplicate')]);
 		}
 	}
 
 	public function getUserIdOptions() {
 
-		$options[0] = Lang::get('kurtjensen.passage::lang.choose_one');
+		$options[0] = Lang::get('josephcrowell.passage::lang.choose_one');
 		$users = User::orderBy('surname')->
 			orderBy('name')->
 			get(['surname', 'name', 'email', 'id']);

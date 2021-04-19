@@ -1,11 +1,11 @@
-<?php namespace KurtJensen\Passage\Controllers;
+<?php namespace JosephCrowell\Passage\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
 use DB;
-use KurtJensen\Passage\Models\Key;
-use KurtJensen\Passage\Models\UserGroupsKeys;
-use RainLab\User\Models\User;
+use JosephCrowell\Passage\Models\Key;
+use JosephCrowell\Passage\Models\UserGroupsKeys;
+use Winter\User\Models\User;
 use System\Classes\PluginManager;
 
 /**
@@ -13,7 +13,7 @@ use System\Classes\PluginManager;
  */
 class Keys extends Controller {
 	public $addBtns = '';
-	public $requiredPermissions = ['kurtjensen.passage.keys'];
+	public $requiredPermissions = ['josephcrowell.passage.keys'];
 	public $implement = [
 		'Backend.Behaviors.FormController',
 		'Backend.Behaviors.ListController',
@@ -25,7 +25,7 @@ class Keys extends Controller {
 	public function __construct() {
 		parent::__construct();
 
-		BackendMenu::setContext('RainLab.User', 'user', 'passage_keys');
+		BackendMenu::setContext('Winter.User', 'user', 'passage_keys');
 	}
 
 	public function index() {
@@ -101,7 +101,7 @@ class Keys extends Controller {
 					'description' => $role->name];
 			}
 
-			\RainLab\User\Models\UserGroup::insert($newRows);
+			\Winter\User\Models\UserGroup::insert($newRows);
 		}
 	}
 

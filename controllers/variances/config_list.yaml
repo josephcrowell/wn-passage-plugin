@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/kurtjensen/passage/models/variance/columns.yaml
+list: $/josephcrowell/passage/models/variance/columns.yaml
 
 # Model Class name
-modelClass: KurtJensen\Passage\Models\Variance
+modelClass: JosephCrowell\Passage\Models\Variance
 
 # List Title
-title: kurtjensen.passage::lang.variances_comp.page_title
+title: josephcrowell.passage::lang.variances_comp.page_title
 
 # Link URL for each record
-recordUrl: kurtjensen/passage/variances/update/:id
+recordUrl: josephcrowell/passage/variances/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

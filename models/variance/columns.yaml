@@ -6,15 +6,15 @@ columns:
     user_id:
         relation: user
         select: concat( surname,', ',name,' - ',email)
-        label: kurtjensen.passage::lang.variance.user_id
+        label: josephcrowell.passage::lang.variance.user_id
         searchable: true
     key_id:
         relation: key
         select: name
-        label: kurtjensen.passage::lang.variance.key_id
+        label: josephcrowell.passage::lang.variance.key_id
         searchable: true
     grant:
-        label: kurtjensen.passage::lang.variance.grant
+        label: josephcrowell.passage::lang.variance.grant
         type: switch
     description:
-        label: kurtjensen.passage::lang.variance.description
+        label: josephcrowell.passage::lang.variance.description

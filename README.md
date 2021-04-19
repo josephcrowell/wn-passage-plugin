@@ -1,20 +1,20 @@
 # Passage plugin
 
-( Installation code : __kurtjensen.passage__ ) Requires ( __RainLab.User__ )
-This plugin adds a front end user group permission system to [OctoberCMS](http://octobercms.com).
+( Installation code : __josephcrowell.passage__ ) Requires ( __Winter.User__ )
+This plugin adds a front end user group permission system to [WinterCMS](http://wintercms.com).
 
-Download the plugin to the plugins directory and logout and log in back into October backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
+Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
 
 ###User Permision / Passage Key Entry######
 
-In the backend under Users (Rainlab.Users) you will find a sidemenu item called __"Passage Keys".__  This is where you enter your permission names and an optional description.
+In the backend under Users (Winter.Users) you will find a sidemenu item called __"Passage Keys".__  This is where you enter your permission names and an optional description.
 
 
 In the backend under Users you will find a button at the top called __"User Groups"__. Press button to see groups.  When editing a group you will find check boxes at the bottom for each "Passage Key".  This is where you assign permissions for each user group.
 
 ###User Variances######
 
-In the backend under Users (Rainlab.Users) you will find a sidemenu item called __"User Variances".__
+In the backend under Users (Winter.Users) you will find a sidemenu item called __"User Variances".__
 
 User variances allow you to add permission keys to individual users.  You can also remove permission from users by adding a variance and unchecking the __Grant__ checkbox.
 
@@ -24,11 +24,11 @@ On a page you may restrict access to a portion of view by using the following tw
 
     {% if can('calendar_meetings') %}
 
-    <p>This will show only if the user belongs to a Rainlab.User Usergroup that includes the permision named "calendar_meetings".</p>
+    <p>This will show only if the user belongs to a Winter.User Usergroup that includes the permision named "calendar_meetings".</p>
 
     {% else %}
 
-    <p>This will show if the user DOES NOT belong to a Rainlab.User Usergroup that include the permision named "calendar_meetings".</p>
+    <p>This will show if the user DOES NOT belong to a Winter.User Usergroup that include the permision named "calendar_meetings".</p>
 
     {% endif %}
 
@@ -36,11 +36,11 @@ On a page you may restrict access to a portion of view by using the following tw
 
     {% if inGroup('my_admins') %}
 
-    <p>This will show only if the user belongs to a Rainlab.User Usergroup that has the code "my_admins".</p>
+    <p>This will show only if the user belongs to a Winter.User Usergroup that has the code "my_admins".</p>
 
     {% else %}
 
-    <p>This will show if the user DOES NOT belong to a Rainlab.User Usergroup that has the code "my_admins".</p>
+    <p>This will show if the user DOES NOT belong to a Winter.User Usergroup that has the code "my_admins".</p>
 
     {% endif %}
 
@@ -50,11 +50,11 @@ On a page you may restrict access to a portion of view by using the following tw
 
     {% if inGroupName('My Admins') %}
 
-    <p>This will show only if the user belongs to a Rainlab.User Usergroup that is named "My Admins".</p>
+    <p>This will show only if the user belongs to a Winter.User Usergroup that is named "My Admins".</p>
 
     {% else %}
 
-    <p>This will show if the user DOES NOT belong to a Rainlab.User Usergroup that is named "My Admins".</p>
+    <p>This will show if the user DOES NOT belong to a Winter.User Usergroup that is named "My Admins".</p>
 
     {% endif %}
 

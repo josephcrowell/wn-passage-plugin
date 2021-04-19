@@ -19,7 +19,7 @@ or
 
 This will no longer work after version future version 1.0.12:
 
-    $permission_keys_by_name = \KurtJensen\Passage\Plugin::passageKeys();
+    $permission_keys_by_name = \JosephCrowell\Passage\Plugin::passageKeys();
 
 If you have other plugins that rely on Passage Permissions it is suggested that you ensure they have been updated to be compatible with version 1.0.12 or application will halt by throwing a Deprecated method error. 
 

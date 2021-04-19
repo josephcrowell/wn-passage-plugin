@@ -1,12 +1,12 @@
-<?php namespace KurtJensen\Passage\Services;
+<?php namespace JosephCrowell\Passage\Services;
 
-use October\Rain\Support\ServiceProvider;
+use Winter\Storm\Support\ServiceProvider;
 
 class PassageServiceProvider extends ServiceProvider {
 
 	public function register() {
 		$this->app->singleton('PassageService', function ($app) {
-			return new \KurtJensen\Passage\Classes\KeyRing;
+			return new \JosephCrowell\Passage\Classes\KeyRing;
 		});
 	}
 

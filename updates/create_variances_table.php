@@ -1,12 +1,12 @@
-<?php namespace KurtJensen\Passage\Updates;
+<?php namespace JosephCrowell\Passage\Updates;
 
-use October\Rain\Database\Schema\Blueprint;
-use October\Rain\Database\Updates\Migration;
+use Winter\Storm\Database\Schema\Blueprint;
+use Winter\Storm\Database\Updates\Migration;
 use Schema;
 
 class CreateVariancesTable extends Migration {
 	public function up() {
-		Schema::create('kurtjensen_passage_variances', function (Blueprint $table) {
+		Schema::create('josephcrowell_passage_variances', function (Blueprint $table) {
 			$table->engine = 'InnoDB';
 			$table->increments('id')->unsigned();
 			$table->integer('user_id')->unsigned();
@@ -20,6 +20,6 @@ class CreateVariancesTable extends Migration {
 	}
 
 	public function down() {
-		Schema::dropIfExists('kurtjensen_passage_variances');
+		Schema::dropIfExists('josephcrowell_passage_variances');
 	}
 }

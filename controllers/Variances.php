@@ -1,4 +1,4 @@
-<?php namespace KurtJensen\Passage\Controllers;
+<?php namespace JosephCrowell\Passage\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -18,6 +18,6 @@ class Variances extends Controller {
 	public function __construct() {
 		parent::__construct();
 
-		BackendMenu::setContext('RainLab.User', 'user', 'variances');
+		BackendMenu::setContext('Winter.User', 'user', 'variances');
 	}
 }

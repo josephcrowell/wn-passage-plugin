@@ -1,17 +1,17 @@
-<?php namespace KurtJensen\Passage\Behaviors;
-use RainLab\User\Models\UserGroup;
+<?php namespace JosephCrowell\Passage\Behaviors;
+use Winter\User\Models\UserGroup;
 
 /**
  * Adds features for copying keys to another group
  *
  * This behavior is implemented in the component like so:
  *
- *    public $implement = ['KurtJensen.Passage.Behaviors.KeyCopy'];
+ *    public $implement = ['JosephCrowell.Passage.Behaviors.KeyCopy'];
  *
  *
  **/
 
-class KeyCopy extends \October\Rain\Extension\ExtensionBase {
+class KeyCopy extends \Winter\Storm\Extension\ExtensionBase {
 
 	protected $controller;
 	public $allGroups;

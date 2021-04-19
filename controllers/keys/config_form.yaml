@@ -3,26 +3,26 @@
 # ===================================
 
 # Record name
-name: kurtjensen.passage::lang.key.model
+name: josephcrowell.passage::lang.key.model
 
 # Model Form Field configuration
-form: $/kurtjensen/passage/models/key/fields.yaml
+form: $/josephcrowell/passage/models/key/fields.yaml
 
 # Model Class name
-modelClass: KurtJensen\Passage\Models\Key
+modelClass: JosephCrowell\Passage\Models\Key
 
 # Default redirect location
-defaultRedirect: kurtjensen/passage/keys
+defaultRedirect: josephcrowell/passage/keys
 
 # Create page
 create:
-    redirect: kurtjensen/passage/keys/update/:id
-    redirectClose: kurtjensen/passage/keys
+    redirect: josephcrowell/passage/keys/update/:id
+    redirectClose: josephcrowell/passage/keys
 
 # Update page
 update:
-    redirect: kurtjensen/passage/keys
-    redirectClose: kurtjensen/passage/keys
+    redirect: josephcrowell/passage/keys
+    redirectClose: josephcrowell/passage/keys
 
 # Preview page
 preview:

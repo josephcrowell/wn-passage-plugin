@@ -1,12 +1,12 @@
-<?php namespace KurtJensen\Passage;
+<?php namespace JosephCrowell\Passage;
 
 use App;
 use Backend;
 use BackendAuth;
 use Event;
 use Illuminate\Foundation\AliasLoader;
-use RainLab\User\Controllers\UserGroups;
-use RainLab\User\Models\UserGroup;
+use Winter\User\Controllers\UserGroups;
+use Winter\User\Models\UserGroup;
 use System\Classes\PluginBase;
 
 /**
@@ -16,7 +16,7 @@ class Plugin extends PluginBase {
 	public static $keys = null;
 	public static $groups = null;
 
-	public $require = ['RainLab.User'];
+	public $require = ['Winter.User'];
 
 	/**
 	 * Returns information about this plugin.
@@ -27,7 +27,7 @@ class Plugin extends PluginBase {
 		return [
 			'name' => 'passage',
 			'description' => 'Fast, Efficient permission system for controlling access to your website resources.',
-			'author' => 'KurtJensen',
+			'author' => 'JosephCrowell',
 			'icon' => 'icon-key',
 		];
 	}
@@ -38,58 +38,58 @@ class Plugin extends PluginBase {
 
 	public function boot() {
 		UserGroup::extend(function ($model) {
-			$model->belongsToMany['passage_keys'] = ['KurtJensen\Passage\Models\Key',
-				'table' => 'kurtjensen_passage_groups_keys',
+			$model->belongsToMany['passage_keys'] = ['JosephCrowell\Passage\Models\Key',
+				'table' => 'josephcrowell_passage_groups_keys',
 				'key' => 'user_group_id',
 				'otherKey' => 'key_id',
 				'order' => 'name'];
 		});
 
 		UserGroups::extend(function ($controller) {
-			$controller->implement[] = 'KurtJensen.Passage.Behaviors.KeyCopy';
+			$controller->implement[] = 'JosephCrowell.Passage.Behaviors.KeyCopy';
 		});
 
 		Event::listen('backend.menu.extendItems', function ($manager) {
-			$manager->addSideMenuItems('RainLab.User', 'user', [
+			$manager->addSideMenuItems('Winter.User', 'user', [
 				'usergroups' => [
-					'label' => 'rainlab.user::lang.groups.all_groups',
+					'label' => 'Winter.User::lang.groups.all_groups',
 					'icon' => 'icon-group',
 					'code' => 'u_groups',
-					'owner' => 'RainLab.User',
-					'url' => Backend::url('rainlab/user/usergroups'),
+					'owner' => 'Winter.User',
+					'url' => Backend::url('winter/user/usergroups'),
 				],
 				'passage_keys' => [
-					'label' => 'kurtjensen.passage::lang.plugin.backend_menu',
+					'label' => 'josephcrowell.passage::lang.plugin.backend_menu',
 					'icon' => 'icon-key',
 					'order' => 1001,
 					'code' => 'passage',
-					'owner' => 'RainLab.User',
-					'permissions' => ['kurtjensen.passage.*'],
-					'url' => Backend::url('kurtjensen/passage/keys'),
+					'owner' => 'Winter.User',
+					'permissions' => ['josephcrowell.passage.*'],
+					'url' => Backend::url('josephcrowell/passage/keys'),
 				],
 				'variance' => [
-					'label' => 'kurtjensen.passage::lang.plugin.backend_variance',
+					'label' => 'josephcrowell.passage::lang.plugin.backend_variance',
 					'icon' => 'icon-key',
 					'order' => 1002,
 					'code' => 'passage',
-					'owner' => 'RainLab.User',
-					'permissions' => ['kurtjensen.passage.*'],
-					'url' => Backend::url('kurtjensen/passage/variances'),
+					'owner' => 'Winter.User',
+					'permissions' => ['josephcrowell.passage.*'],
+					'url' => Backend::url('josephcrowell/passage/variances'),
 				],
 			]);
 		});
 
 		Event::listen('backend.form.extendFields', function ($widget) {
 			$UGcontroller = $widget->getController();
-			if (!$UGcontroller instanceof \RainLab\User\Controllers\UserGroups) {
+			if (!$UGcontroller instanceof \Winter\User\Controllers\UserGroups) {
 				return;
 			}
 
-			if (!$widget->model instanceof \RainLab\User\Models\UserGroup) {
+			if (!$widget->model instanceof \Winter\User\Models\UserGroup) {
 				return;
 			}
 			//die(BackendAuth::getUser()->first_name);
-			if (!BackendAuth::getUser()->hasAccess('kurtjensen.passage.usergroups')) {
+			if (!BackendAuth::getUser()->hasAccess('josephcrowell.passage.usergroups')) {
 				return;
 			}
 
@@ -97,27 +97,27 @@ class Plugin extends PluginBase {
 
 			$widget->addFields([
 				'passage_keys' => [
-					'tab' => 'kurtjensen.passage::lang.plugin.field_tab',
-					'label' => 'kurtjensen.passage::lang.plugin.field_label',
-					'commentAbove' => 'kurtjensen.passage::lang.plugin.field_commentAbove',
+					'tab' => 'josephcrowell.passage::lang.plugin.field_tab',
+					'label' => 'josephcrowell.passage::lang.plugin.field_label',
+					'commentAbove' => 'josephcrowell.passage::lang.plugin.field_commentAbove',
 					'span' => 'left',
 					'type' => 'relation',
-					'emptyOption' => 'kurtjensen.passage::lang.plugin.field_emptyOption',
+					'emptyOption' => 'josephcrowell.passage::lang.plugin.field_emptyOption',
 				],
 				'copy_btn' => [
-					'tab' => 'kurtjensen.passage::lang.plugin.field_tab',
-					'label' => 'kurtjensen.passage::lang.copy',
-					'commentAbove' => 'kurtjensen.passage::lang.copy_comment',
+					'tab' => 'josephcrowell.passage::lang.plugin.field_tab',
+					'label' => 'josephcrowell.passage::lang.copy',
+					'commentAbove' => 'josephcrowell.passage::lang.copy_comment',
 					'span' => 'right',
 					'type' => 'partial',
-					'path' => '$/kurtjensen/passage/controllers/keys/_copy.htm',
+					'path' => '$/josephcrowell/passage/controllers/keys/_copy.htm',
 				],
 			], 'primary');
 		});
 
 		$alias = AliasLoader::getInstance();
-		$alias->alias('PassageService', '\KurtJensen\Passage\Classes\KeyRing');
-		App::register('\KurtJensen\Passage\Services\PassageServiceProvider');
+		$alias->alias('PassageService', '\JosephCrowell\Passage\Classes\KeyRing');
+		App::register('\JosephCrowell\Passage\Services\PassageServiceProvider');
 	}
 
 	/**
@@ -127,14 +127,14 @@ class Plugin extends PluginBase {
 	 */
 	public function registerPermissions() {
 		return [
-			'kurtjensen.passage.*' => [
-				'tab' => 'rainlab.user::lang.plugin.tab',
-				'label' => 'kurtjensen.passage::lang.plugin.permiss_label',
+			'josephcrowell.passage.*' => [
+				'tab' => 'Winter.User::lang.plugin.tab',
+				'label' => 'josephcrowell.passage::lang.plugin.permiss_label',
 			],
 
-			'kurtjensen.passage.usergroups' => [
-				'tab' => 'rainlab.user::lang.plugin.tab',
-				'label' => 'kurtjensen.passage::lang.plugin.permiss_label_ug',
+			'josephcrowell.passage.usergroups' => [
+				'tab' => 'Winter.User::lang.plugin.tab',
+				'label' => 'josephcrowell.passage::lang.plugin.permiss_label_ug',
 			],
 		];
 	}
@@ -157,47 +157,47 @@ class Plugin extends PluginBase {
 	}
 
 	public static function globalPassageKeys() {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::globalPassageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::globalPassageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::globalPassageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::globalPassageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
 		return app('PassageService')::passageKeys();
 	}
 
 	public static function passageKeys() {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::passageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::passageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::passageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::passageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
 		return app('PassageService')::passageKeys();
 	}
 
 	public static function hasKeyName($key_name) {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasKeyName() called. Use PassageService::hasKeyName() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasKeyName() called. Use app('PassageService')::hasKeyName() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::hasKeyName() called. Use PassageService::hasKeyName() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasKeyName() called. Use app('PassageService')::hasKeyName() instead.", E_USER_DEPRECATED);
 		$keys = app('PassageService')::passageKeys();
 		return in_array($key_name, $keys);
 	}
 
 	public static function hasKey($key_id) {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasKey() called. Use PassageService::hasKey() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasKey() called. Use app('PassageService')::hasKey() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::hasKey() called. Use PassageService::hasKey() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasKey() called. Use app('PassageService')::hasKey() instead.", E_USER_DEPRECATED);
 		$keys = app('PassageService')::passageKeys();
 		return array_key_exists($key_id, $keys);
 	}
 
 	public static function passageGroups() {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::passageGroups() called. Use PassageService::passageGroups() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::passageGroups() called. Use app('PassageService')::passageGroups() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::passageGroups() called. Use PassageService::passageGroups() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::passageGroups() called. Use app('PassageService')::passageGroups() instead.", E_USER_DEPRECATED);
 		return app('PassageService')::passageGroups();
 	}
 
 	public static function hasGroupName($group_name) {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasGroupName() called. Use PassageService::hasGroupName() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasGroupName() called. Use app('PassageService')::hasGroupName() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::hasGroupName() called. Use PassageService::hasGroupName() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasGroupName() called. Use app('PassageService')::hasGroupName() instead.", E_USER_DEPRECATED);
 		$groups = app('PassageService')::passageGroups();
 		return in_array($group_name, $groups);
 	}
 
 	public static function hasGroup($group_code) {
-		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasGroup() called. Use PassageService::hasGroup() instead. See Passage Upgrade Guide.");
-		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasGroup() called. Use app('PassageService')::hasGroup() instead.", E_USER_DEPRECATED);
+		traceLog("Deprecated method \JosephCrowell\Passage\Plugin::hasGroup() called. Use PassageService::hasGroup() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasGroup() called. Use app('PassageService')::hasGroup() instead.", E_USER_DEPRECATED);
 		$groups = app('PassageService')::passageGroups();
 		return array_key_exists($group_code, $groups);
 	}

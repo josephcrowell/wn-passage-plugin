@@ -1,4 +1,4 @@
-<?php namespace KurtJensen\Passage\Models;
+<?php namespace JosephCrowell\Passage\Models;
 
 use Model;
 
@@ -23,11 +23,11 @@ class UsersGroups extends Model {
 	protected $fillable = [];
 
 	public $belongsTo = [
-		'user' => ['RainLab\User\Models\User',
+		'user' => ['Winter\User\Models\User',
 			'key' => 'user_id',
 			'otherKey' => 'id'],
 
-		'group' => ['RainLab\User\Models\UserGroup',
+		'group' => ['Winter\User\Models\UserGroup',
 			'table' => 'user_groups',
 			'key' => 'user_group_id',
 			'otherkey' => 'id',
@@ -35,8 +35,8 @@ class UsersGroups extends Model {
 	];
 
 	public $belongsToMany = [
-		'passage_keys' => ['KurtJensen\Passage\Models\Key',
-			'table' => 'kurtjensen_passage_groups_keys',
+		'passage_keys' => ['JosephCrowell\Passage\Models\Key',
+			'table' => 'josephcrowell_passage_groups_keys',
 			'key' => 'user_group_id',
 			'otherKey' => 'key_id',
 		],
