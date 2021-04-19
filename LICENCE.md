@@ -2,9 +2,12 @@
 
 See: [https://creativecommons.org/licenses/by-sa/4.0/] for more details.
 
-_Publisher:_
+_Original_Author:_
     Kurt Jensen
     kjensen @ iaff106.com
+_Current_Author:_
+    Joseph Crowell
+    joseph.w.crowell @ gmail.com
 
 The above copyright notice, publisher information and this permission notice shall be included in all
 copies or substantial portions of the Software.
