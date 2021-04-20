@@ -5,20 +5,20 @@ This plugin adds a front end user group permission system to [WinterCMS](http://
 
 Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
 
-###User Permision / Passage Key Entry###
+###User Permision / Passage Key Entry
 
 In the backend under Users (Winter.Users) you will find a sidemenu item called __"Passage Keys".__  This is where you enter your permission names and an optional description.
 
 
 In the backend under Users you will find a button at the top called __"User Groups"__. Press button to see groups.  When editing a group you will find check boxes at the bottom for each "Passage Key".  This is where you assign permissions for each user group.
 
-###User Variances###
+###User Variances
 
 In the backend under Users (Winter.Users) you will find a sidemenu item called __"User Variances".__
 
 User variances allow you to add permission keys to individual users.  You can also remove permission from users by adding a variance and unchecking the __Grant__ checkbox.
 
-###User Permisions in Pages or Partials###
+###User Permisions in Pages or Partials
 
 On a page you may restrict access to a portion of view by using the following twig functions:
 
@@ -62,7 +62,7 @@ On a page you may restrict access to a portion of view by using the following tw
     <p>This will show for all users regardless of permissions.</p>
 
 
-##Available Twig Functions##
+##Available Twig Functions
 - can('KeyName') - Check a passage key name
 - hasKeyName('KeyName') - Check a passage key name
 - hasKeyNames(['KeyName1','KeyName2','KeyName3']) - Check an array of passage key names
@@ -74,7 +74,7 @@ On a page you may restrict access to a portion of view by using the following tw
 - inGroup('GroupCode') - Check a passage group code
 - inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
 
-###User Permisions in Your Own Plugins###
+###User Permisions in Your Own Plugins
 
     // Passage Service Methods can be accessed in one of two ways:
     $permission_keys_by_name = PassageService::passageKeys(); // by Alias
@@ -144,14 +144,13 @@ On a page you may restrict access to a portion of view by using the following tw
 	// use hasGroupName($group_name) to check membership
 	$isInGroupNamedCool = PassageService::hasGroupName('Cool')
 
-##Available Passage Service Methods##
+##Available Passage Service Methods
 - passageKeys() - Get an array of all approved passage keys for the user
 - can($key_name) - (alias of hasKeyName())
 - hasKeyName($key_name) - Check a passage key name
 - hasKey(integer $key_id) - Check a passage key id
 - hasKeys(array $check_key_ids) - Check an array of passage key ids
 - hasKeyNames(array $check_keys) - Check an array of passage key names
-
 - passageGroups() - Get an array of all approved passage groups for the user
 - inGroupName($group_name) - Check a passage group name
 - hasGroupName($group_name) - (alias of inGroupName())
