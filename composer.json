@@ -27,7 +27,7 @@
       "email": "joseph.w.crowell@gmail.com",
       "homepage": "https://computerlink.com.au",
       "role": "Author"
-    },
+    }
   ],
   "require": {
     "php": ">=7.0",
