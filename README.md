@@ -5,20 +5,20 @@ This plugin adds a front end user group permission system to [WinterCMS](http://
 
 Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
 
-###User Permision / Passage Key Entry######
+###User Permision / Passage Key Entry###
 
 In the backend under Users (Winter.Users) you will find a sidemenu item called __"Passage Keys".__  This is where you enter your permission names and an optional description.
 
 
 In the backend under Users you will find a button at the top called __"User Groups"__. Press button to see groups.  When editing a group you will find check boxes at the bottom for each "Passage Key".  This is where you assign permissions for each user group.
 
-###User Variances######
+###User Variances###
 
 In the backend under Users (Winter.Users) you will find a sidemenu item called __"User Variances".__
 
 User variances allow you to add permission keys to individual users.  You can also remove permission from users by adding a variance and unchecking the __Grant__ checkbox.
 
-###User Permisions in Pages or Partials######
+###User Permisions in Pages or Partials###
 
 On a page you may restrict access to a portion of view by using the following twig functions:
 
@@ -74,7 +74,7 @@ On a page you may restrict access to a portion of view by using the following tw
 - inGroup('GroupCode') - Check a passage group code
 - inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
 
-###User Permisions in Your Own Plugins######
+###User Permisions in Your Own Plugins###
 
     // Passage Service Methods can be accessed in one of two ways:
     $permission_keys_by_name = PassageService::passageKeys(); // by Alias
@@ -159,11 +159,3 @@ On a page you may restrict access to a portion of view by using the following tw
 - hasGroup($group_code) - (alias of inGroup())
 - inGroups(array $check_group_codes) - Check an array of passage group ids
 - inGroupNames(array $check_groups) - Check an array of passage group names
-
-
-## Like this plugin?
-If you like this plugin or if you use some of my plugins, you can help me by submiting a review in the market. Small donations also help keep me motivated. 
-
-Please do not hesitate to find me in the IRC channel or contact me for assistance.
-Sincerely 
-Kurt Jensen
