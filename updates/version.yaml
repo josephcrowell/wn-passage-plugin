@@ -20,3 +20,6 @@
 1.1.2: Variances are now searchable in backend ( Thanks ndcisiv@github.com )
 1.1.3: People and Groups now listed in Passage Key updated form
 1.1.4: Added copy keys button to usergroup form to make it easy to copy keys between groups.
+1.2.0: 
+    - Convert to Winter CMS and change owner to Joseph Crowell
+    - rename_tables.php

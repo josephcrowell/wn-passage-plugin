@@ -29,6 +29,7 @@ class Plugin extends PluginBase {
 			'description' => 'Fast, Efficient permission system for controlling access to your website resources.',
 			'author' => 'JosephCrowell',
 			'icon' => 'icon-key',
+			'replaces' => 'KurtJensen.Passage',
 		];
 	}
 
