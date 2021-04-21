@@ -29,6 +29,11 @@
       "role": "Author"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "JosephCrowell\\Passage\\": ""
+    }
+  },
   "require": {
     "php": ">=7.0",
     "composer/installers": "~1.0",
