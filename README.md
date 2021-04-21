@@ -1,6 +1,19 @@
 # Passage plugin
 
-[![Build Status](https://travis-ci.org/josephcrowell/wn-passage-plugin.svg?branch=master)](https://travis-ci.org/josephcrowell/wn-passage-plugin)
+<p align="center">
+  <a href="https://travis-ci.org/josephcrowell/wn-passage-plugin">
+    <img src="https://travis-ci.org/josephcrowell/wn-passage-plugin.svg?branch=master">
+  </a>
+  <a href="https://wintercms.com/plugin/josephcrowell-passage">
+    <img src="https://img.shields.io/badge/Winter CMS-Plugin-%23EE7203.svg">
+  </a>
+  <a href="https://www.patreon.com/josephcrowell">
+    <img src="https://img.shields.io/badge/Support_on-Patreon-green.svg">
+  </a>
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+    <img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg">
+  </a>
+</p>
 
 ( Installation code : __josephcrowell.passage__ ) Requires ( __Winter.User__ )
 
