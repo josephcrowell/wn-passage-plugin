@@ -63,7 +63,7 @@ class Plugin extends PluginBase
         Event::listen("backend.menu.extendItems", function ($manager) {
             $manager->addSideMenuItems("Winter.User", "user", [
                 "usergroups" => [
-                    "label" => "Winter.User::lang.groups.all_groups",
+                    "label" => "winter.user::lang.groups.all_groups",
                     "icon" => "icon-group",
                     "code" => "u_groups",
                     "owner" => "Winter.User",
