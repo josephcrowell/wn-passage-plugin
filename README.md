@@ -1,6 +1,8 @@
 # Passage plugin
 
+    [![Build Status](https://travis-ci.org/shahroznawaz/php-notifications.svg?branch=master)](https://travis -ci.org/ shahroznawaz/php-notifications)
 ( Installation code : __josephcrowell.passage__ ) Requires ( __Winter.User__ )
+
 This plugin adds a front end user group permission system to [WinterCMS](http://wintercms.com).
 
 Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
