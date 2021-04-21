@@ -16,13 +16,13 @@ defaultRedirect: josephcrowell/passage/keys
 
 # Create page
 create:
-    redirect: josephcrowell/passage/keys/update/:id
-    redirectClose: josephcrowell/passage/keys
+  redirect: josephcrowell/passage/keys/update/:id
+  redirectClose: josephcrowell/passage/keys
 
 # Update page
 update:
-    redirect: josephcrowell/passage/keys
-    redirectClose: josephcrowell/passage/keys
+  redirect: josephcrowell/passage/keys
+  redirectClose: josephcrowell/passage/keys
 
 # Preview page
 preview:

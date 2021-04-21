@@ -3,14 +3,14 @@
 # ===================================
 
 fields:
-    user_id:
-        label: josephcrowell.passage::lang.variance.user_id
-        type: dropdown
-    key_id:
-        label: josephcrowell.passage::lang.variance.key_id
-        type: dropdown
-    grant:
-        label: josephcrowell.passage::lang.variance.grant
-        type: checkbox
-    description:
-        label: josephcrowell.passage::lang.variance.description
+  user_id:
+    label: josephcrowell.passage::lang.variance.user_id
+    type: dropdown
+  key_id:
+    label: josephcrowell.passage::lang.variance.key_id
+    type: dropdown
+  grant:
+    label: josephcrowell.passage::lang.variance.grant
+    type: checkbox
+  description:
+    label: josephcrowell.passage::lang.variance.description

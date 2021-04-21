@@ -3,15 +3,15 @@
 # ===================================
 
 columns:
-    name:
-        label: josephcrowell.passage::lang.key.name
-        searchable: true
-    description:
-        label: josephcrowell.passage::lang.key.description
-        searchable: true
-    updated_at:
-        label: josephcrowell.passage::lang.key.updated
-        searchable: false
-    created_at:
-        label: josephcrowell.passage::lang.key.created
-        searchable: false
+  name:
+    label: josephcrowell.passage::lang.key.name
+    searchable: true
+  description:
+    label: josephcrowell.passage::lang.key.description
+    searchable: true
+  updated_at:
+    label: josephcrowell.passage::lang.key.updated
+    searchable: false
+  created_at:
+    label: josephcrowell.passage::lang.key.created
+    searchable: false

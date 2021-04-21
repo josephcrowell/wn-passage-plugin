@@ -3,18 +3,18 @@
 # ===================================
 
 columns:
-    user_id:
-        relation: user
-        select: concat( surname,', ',name,' - ',email)
-        label: josephcrowell.passage::lang.variance.user_id
-        searchable: true
-    key_id:
-        relation: key
-        select: name
-        label: josephcrowell.passage::lang.variance.key_id
-        searchable: true
-    grant:
-        label: josephcrowell.passage::lang.variance.grant
-        type: switch
-    description:
-        label: josephcrowell.passage::lang.variance.description
+  user_id:
+    relation: user
+    select: concat( surname,', ',name,' - ',email)
+    label: josephcrowell.passage::lang.variance.user_id
+    searchable: true
+  key_id:
+    relation: key
+    select: name
+    label: josephcrowell.passage::lang.variance.key_id
+    searchable: true
+  grant:
+    label: josephcrowell.passage::lang.variance.grant
+    type: switch
+  description:
+    label: josephcrowell.passage::lang.variance.description

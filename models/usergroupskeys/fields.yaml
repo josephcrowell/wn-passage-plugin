@@ -3,6 +3,6 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+  id:
+    label: ID
+    disabled: true

@@ -1,4 +1,6 @@
-<?php namespace JosephCrowell\Passage\Controllers;
+<?php
+
+namespace JosephCrowell\Passage\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -11,28 +13,31 @@ use System\Classes\PluginManager;
 /**
  * Keys Back-end Controller
  */
-class Keys extends Controller {
-	public $addBtns = '';
-	public $requiredPermissions = ['josephcrowell.passage.keys'];
-	public $implement = [
-		'Backend.Behaviors.FormController',
-		'Backend.Behaviors.ListController',
-	];
+class Keys extends Controller
+{
+    public $addBtns = "";
+    public $requiredPermissions = ["josephcrowell.passage.keys"];
+    public $implement = [
+        "Backend.Behaviors.FormController",
+        "Backend.Behaviors.ListController",
+    ];
 
-	public $formConfig = 'config_form.yaml';
-	public $listConfig = 'config_list.yaml';
+    public $formConfig = "config_form.yaml";
+    public $listConfig = "config_list.yaml";
 
-	public function __construct() {
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		BackendMenu::setContext('Winter.User', 'user', 'passage_keys');
-	}
+        BackendMenu::setContext("Winter.User", "user", "passage_keys");
+    }
 
-	public function index() {
-		parent::index();
-		$manager = PluginManager::instance();
-		$this->addBtns = ($manager->exists('shahiemseymor.roles')) ?
-		'
+    public function index()
+    {
+        parent::index();
+        $manager = PluginManager::instance();
+        $this->addBtns = $manager->exists("shahiemseymor.roles")
+            ? '
         <div class="layout-row">
             <div class="padded-container">
                 <div class="callout callout-info">
@@ -68,67 +73,76 @@ class Keys extends Controller {
                     </div>
                 </div>
             </div>
-        </div>' : '';
+        </div>'
+            : "";
+    }
 
-	}
+    public function onConvertFromPerms()
+    {
+        $manager = PluginManager::instance();
+        if ($manager->exists("shahiemseymor.roles")) {
+            $perms = DB::table("shahiemseymor_permissions")->get();
+            foreach ($perms as $perm) {
+                $newRows[] = [
+                    "id" => $perm->id,
+                    "name" => $perm->name,
+                    "description" => $perm->display_name,
+                ];
+            }
+            Key::insert($newRows);
+        }
+    }
 
-	public function onConvertFromPerms() {
-		$manager = PluginManager::instance();
-		if ($manager->exists('shahiemseymor.roles')) {
+    public function onConvertFromRoles()
+    {
+        $manager = PluginManager::instance();
+        if ($manager->exists("shahiemseymor.roles")) {
+            $roles = DB::table("shahiemseymor_roles")->get();
+            foreach ($roles as $role) {
+                $newRows[] = [
+                    "id" => $role->id,
+                    "name" => $role->name,
+                    "code" => str_replace(" ", "_", strtolower($role->name)),
+                    "description" => $role->name,
+                ];
+            }
 
-			$perms = DB::table('shahiemseymor_permissions')->get();
-			foreach ($perms as $perm) {
+            \Winter\User\Models\UserGroup::insert($newRows);
+        }
+    }
 
-				$newRows[] = [
-					'id' => $perm->id,
-					'name' => $perm->name,
-					'description' => $perm->display_name];
-			}
-			Key::insert($newRows);
-		}
-	}
+    public function onConvertFromRolesPerms()
+    {
+        $manager = PluginManager::instance();
+        if ($manager->exists("shahiemseymor.roles")) {
+            $permRoles = DB::table("shahiemseymor_permission_role")->get();
+            foreach ($permRoles as $pr) {
+                $newRows[] = [
+                    "key_id" => $pr->permission_id,
+                    "user_group_id" => $pr->role_id,
+                ];
+            }
 
-	public function onConvertFromRoles() {
-		$manager = PluginManager::instance();
-		if ($manager->exists('shahiemseymor.roles')) {
-			$roles = DB::table('shahiemseymor_roles')->get();
-			foreach ($roles as $role) {
+            UserGroupsKeys::insert($newRows);
+        }
+    }
 
-				$newRows[] = [
-					'id' => $role->id,
-					'name' => $role->name,
-					'code' => str_replace(' ', '_', strtolower($role->name)),
-					'description' => $role->name];
-			}
+    public static function userList($key)
+    {
+        $query = User::whereHas("groups.passage_keys", function ($q) use (
+            $key
+        ) {
+            $q->where("key_id", $key);
+        });
 
-			\Winter\User\Models\UserGroup::insert($newRows);
-		}
-	}
+        return $query
+            ->orderBy("surname")
+            ->orderBy("name")
+            ->get(["surname", "name", "email", "id"]);
+    }
 
-	public function onConvertFromRolesPerms() {
-		$manager = PluginManager::instance();
-		if ($manager->exists('shahiemseymor.roles')) {
-			$permRoles = DB::table('shahiemseymor_permission_role')->get();
-			foreach ($permRoles as $pr) {
-
-				$newRows[] = [
-					'key_id' => $pr->permission_id,
-					'user_group_id' => $pr->role_id];
-			}
-
-			UserGroupsKeys::insert($newRows);
-		}
-	}
-
-	public static function userList($key) {
-		$query = User::whereHas('groups.passage_keys', function ($q) use ($key) {
-			$q->where('key_id', $key);
-		});
-
-		return $query->orderBy('surname')->orderBy('name')->get(['surname', 'name', 'email', 'id']);
-	}
-
-	public static function groupList($model) {
-		return $model->groups;
-	}
+    public static function groupList($model)
+    {
+        return $model->groups;
+    }
 }

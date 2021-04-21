@@ -7,16 +7,15 @@ use Model;
  */
 class Key extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'josephcrowell_passage_keys';
+    public $table = "josephcrowell_passage_keys";
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = ["*"];
 
     /**
      * @var array Fillable fields
@@ -27,14 +26,16 @@ class Key extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'groups' => ['Winter\User\Models\UserGroup',
-            'table' => 'josephcrowell_passage_groups_keys',
-            'key' => 'key_id',
-            'otherkey' => 'user_group_id',
+        "groups" => [
+            "Winter\User\Models\UserGroup",
+            "table" => "josephcrowell_passage_groups_keys",
+            "key" => "key_id",
+            "otherkey" => "user_group_id",
         ],
-        'users_count' => ['Winter\User\Models\UserGroup',
-            'table' => 'josephcrowell_passage_groups_keys',
-            'count' => true,
+        "users_count" => [
+            "Winter\User\Models\UserGroup",
+            "table" => "josephcrowell_passage_groups_keys",
+            "count" => true,
         ],
     ];
 }

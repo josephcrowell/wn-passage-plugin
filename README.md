@@ -15,7 +15,7 @@
   </a>
 </p>
 
-( Installation code : __josephcrowell.passage__ ) Requires ( __Winter.User__ )
+( Installation code : **josephcrowell.passage** ) Requires ( **Winter.User** )
 
 This plugin adds a front end user group permission system to [WinterCMS](http://wintercms.com).
 
@@ -23,16 +23,15 @@ Download the plugin to the plugins directory and logout and log in back into Win
 
 <h3>User Permision / Passage Key Entry</h3>
 
-In the backend under Users (Winter.Users) you will find a sidemenu item called __"Passage Keys".__  This is where you enter your permission names and an optional description.
+In the backend under Users (Winter.Users) you will find a sidemenu item called **"Passage Keys".** This is where you enter your permission names and an optional description.
 
-
-In the backend under Users you will find a button at the top called __"User Groups"__. Press button to see groups.  When editing a group you will find check boxes at the bottom for each "Passage Key".  This is where you assign permissions for each user group.
+In the backend under Users you will find a button at the top called **"User Groups"**. Press button to see groups. When editing a group you will find check boxes at the bottom for each "Passage Key". This is where you assign permissions for each user group.
 
 <h3>User Variances</h3>
 
-In the backend under Users (Winter.Users) you will find a sidemenu item called __"User Variances".__
+In the backend under Users (Winter.Users) you will find a sidemenu item called **"User Variances".**
 
-User variances allow you to add permission keys to individual users.  You can also remove permission from users by adding a variance and unchecking the __Grant__ checkbox.
+User variances allow you to add permission keys to individual users. You can also remove permission from users by adding a variance and unchecking the **Grant** checkbox.
 
 <h3>User Permisions in Pages or Partials</h3>
 
@@ -77,7 +76,6 @@ On a page you may restrict access to a portion of view by using the following tw
 
     <p>This will show for all users regardless of permissions.</p>
 
-
 <h2>Available Twig Functions</h2>
 
 - can('KeyName') - Check a passage key name
@@ -98,68 +96,68 @@ On a page you may restrict access to a portion of view by using the following tw
     //OR
     $permission_keys_by_name = app('PassageService')::passageKeys(); // by App Service
 
-	// Get all permision keys for the user in an array
-	$permission_keys_by_name = app('PassageService')::passageKeys();
+    // Get all permision keys for the user in an array
+    $permission_keys_by_name = app('PassageService')::passageKeys();
 
-	/**
-	* OR
-	* 
-	* In your plugin you may restrict access to a portion of code:
-	**/
+    /**
+    * OR
+    *
+    * In your plugin you may restrict access to a portion of code:
+    **/
 
-	// check for permission directly using hasKeyName( $key_name )
-	$permissionGranted = app('PassageService')::hasKeyName('view_magic_dragon');
-	if($permissionGranted) {
-		// Do stuff
-	}
-
-	/**
-	* OR
-	* 
-	* 	Lets say you have a model that uses a permission field containg the id of a
-	*   permission key and want to see if model permission matches.
-	* 
-	* 	Example:
-	* 	$model->perm_id = 5 which came from a dropdown that contained keys 
-	* 	from PassageService::passageKeys();
-	**/
-
-	$model = Model::first();
-	// check for permission directly using hasKey( $key_id )
-	if(PassageService::hasKey($model->perm_id)) {
-        // Do Stuff
-    }else{
-        // Do other Stuff if user does NOT have permission  
+    // check for permission directly using hasKeyName( $key_name )
+    $permissionGranted = app('PassageService')::hasKeyName('view_magic_dragon');
+    if($permissionGranted) {
+    	// Do stuff
     }
 
-	/**
-	* OR
-	* 
-	* 	Get Array of Groups
-	**/
+    /**
+    * OR
+    *
+    * 	Lets say you have a model that uses a permission field containg the id of a
+    *   permission key and want to see if model permission matches.
+    *
+    * 	Example:
+    * 	$model->perm_id = 5 which came from a dropdown that contained keys
+    * 	from PassageService::passageKeys();
+    **/
 
-	// You can get array of the users groups keyed by the code of the group
-	$groups = PassageService::passageGroups()
+    $model = Model::first();
+    // check for permission directly using hasKey( $key_id )
+    if(PassageService::hasKey($model->perm_id)) {
+        // Do Stuff
+    }else{
+        // Do other Stuff if user does NOT have permission
+    }
 
-	/**
-	* OR
-	* 
-	* 	Check group membership by group code
-	**/
+    /**
+    * OR
+    *
+    * 	Get Array of Groups
+    **/
 
-	// use hasGroup($group_code) to check membership
-	$isCool = PassageService::hasGroup('cool_people')
+    // You can get array of the users groups keyed by the code of the group
+    $groups = PassageService::passageGroups()
 
-	/**
-	* OR
-	* 
-	* 	Check group membership by group Name
-	*   Note: Group names are not guaranteed to be unique.
-	*   DO NOT CHECK BY GROUP NAME if security is an issue.
-	**/
+    /**
+    * OR
+    *
+    * 	Check group membership by group code
+    **/
 
-	// use hasGroupName($group_name) to check membership
-	$isInGroupNamedCool = PassageService::hasGroupName('Cool')
+    // use hasGroup($group_code) to check membership
+    $isCool = PassageService::hasGroup('cool_people')
+
+    /**
+    * OR
+    *
+    * 	Check group membership by group Name
+    *   Note: Group names are not guaranteed to be unique.
+    *   DO NOT CHECK BY GROUP NAME if security is an issue.
+    **/
+
+    // use hasGroupName($group_name) to check membership
+    $isInGroupNamedCool = PassageService::hasGroupName('Cool')
 
 <h2>Available Passage Service Methods</h2>
 

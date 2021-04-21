@@ -3,20 +3,20 @@
 # ===================================
 
 fields:
-    id:
-        label: josephcrowell.passage::lang.key.id
-        disabled: true
-    name:
-        label: josephcrowell.passage::lang.key.name
-    description:
-        label: josephcrowell.passage::lang.key.description
+  id:
+    label: josephcrowell.passage::lang.key.id
+    disabled: true
+  name:
+    label: josephcrowell.passage::lang.key.name
+  description:
+    label: josephcrowell.passage::lang.key.description
 
-    people:
-        label: josephcrowell.passage::lang.key.people
-        type: partial
-        path: $/josephcrowell/passage/controllers/keys/_people.htm
+  people:
+    label: josephcrowell.passage::lang.key.people
+    type: partial
+    path: $/josephcrowell/passage/controllers/keys/_people.htm
 
-    groups:
-        label: josephcrowell.passage::lang.key.groups
-        type: partial
-        path: $/josephcrowell/passage/controllers/keys/_groups.htm
+  groups:
+    label: josephcrowell.passage::lang.key.groups
+    type: partial
+    path: $/josephcrowell/passage/controllers/keys/_groups.htm

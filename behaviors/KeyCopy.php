@@ -1,4 +1,7 @@
-<?php namespace JosephCrowell\Passage\Behaviors;
+<?php
+
+namespace JosephCrowell\Passage\Behaviors;
+
 use Winter\User\Models\UserGroup;
 
 /**
@@ -11,40 +14,50 @@ use Winter\User\Models\UserGroup;
  *
  **/
 
-class KeyCopy extends \Winter\Storm\Extension\ExtensionBase {
+class KeyCopy extends \Winter\Storm\Extension\ExtensionBase
+{
+    protected $controller;
+    public $allGroups;
+    /**
+     * Constructor
+     */
+    public function __construct($controller)
+    {
+        $this->controller = $controller;
+    }
 
-	protected $controller;
-	public $allGroups;
-	/**
-	 * Constructor
-	 */
-	public function __construct($controller) {
-		$this->controller = $controller;
-	}
+    public function getAllGroups()
+    {
+        $this->controller->allGroups = UserGroup::orderBy("name")->get();
+    }
 
-	public function getAllGroups() {
-		$this->controller->allGroups = UserGroup::orderBy('name')->get();
-	}
+    public function onCopy()
+    {
+        $group = UserGroup::find(post("CGid"));
+        if (!$group->passage_keys->count() > 0) {
+            return [];
+        }
+        foreach ($group->passage_keys as $key) {
+            $funct_lines[] =
+                '$(\'input:checkbox[name="UserGroup[passage_keys][]"][value="' .
+                $key->id .
+                '"]\').prop( "checked", true );';
+        }
 
-	public function onCopy() {
-		$group = UserGroup::find(post('CGid'));
-		if (!$group->passage_keys->count() > 0) {
-			return [];
-		}
-		foreach ($group->passage_keys as $key) {
-
-			$funct_lines[] = '$(\'input:checkbox[name="UserGroup[passage_keys][]"][value="' . $key->id . '"]\').prop( "checked", true );';
-		}
-
-		return ['#copyGkeys' => '
+        return [
+            "#copyGkeys" =>
+                '
 			<script type="text/javascript">
-			               ' . implode('', $funct_lines) . '
+			               ' .
+                implode("", $funct_lines) .
+                '
 			</script>
-			'];
-	}
+			',
+        ];
+    }
 
-	public function onGetGroups() {
-
-		return ['#copyForm' => 'fo'];
-	}
+    public function onGetGroups()
+    {
+        return ["#copyForm" => "fo"];
+    }
 }

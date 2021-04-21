@@ -1,14 +1,19 @@
 <?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('winter/user/users') ?>"><?= e(trans('Winter.User::lang.users.menu_label')) ?></a></li>
-        <li><?= e(trans($this->pageTitle)) ?></li>
-    </ul>
+<ul>
+  <li>
+    <a href="<?= Backend::url('winter/user/users') ?>"
+      ><?= e(trans('Winter.User::lang.users.menu_label')) ?></a
+    >
+  </li>
+  <li><?= e(trans($this->pageTitle)) ?></li>
+</ul>
 <?php Block::endPut() ?>
 <?= $this->addBtns ?>
 <div data-control="toolbar">
-    <a
-        href="<?= Backend::url('josephcrowell/passage/keys/create') ?>"
-        class="btn btn-primary oc-icon-plus">
-        <?= e(trans('josephcrowell.passage::lang.keys_comp.new')) ?>
-    </a>
+  <a
+    href="<?= Backend::url('josephcrowell/passage/keys/create') ?>"
+    class="btn btn-primary oc-icon-plus"
+  >
+    <?= e(trans('josephcrowell.passage::lang.keys_comp.new')) ?>
+  </a>
 </div>

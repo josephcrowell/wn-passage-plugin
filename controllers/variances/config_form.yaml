@@ -16,13 +16,13 @@ defaultRedirect: josephcrowell/passage/variances
 
 # Create page
 create:
-    redirect: josephcrowell/passage/variances/update/:id
-    redirectClose: josephcrowell/passage/variances
+  redirect: josephcrowell/passage/variances/update/:id
+  redirectClose: josephcrowell/passage/variances
 
 # Update page
 update:
-    redirect: josephcrowell/passage/variances
-    redirectClose: josephcrowell/passage/variances
+  redirect: josephcrowell/passage/variances
+  redirectClose: josephcrowell/passage/variances
 
 # Preview page
 preview:
