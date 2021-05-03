@@ -1,44 +1,44 @@
 {
-  "name": "josephcrowell/wn-passage-plugin",
-  "type": "winter-plugin",
-  "description": "Fast, Efficient permission system for controlling access to your website resources",
-  "keywords": [
-    "winter",
-    "cms",
-    "wintercms",
-    "user",
-    "authentication",
-    "permission",
-    "passage",
-    "key",
-    "group"
-  ],
-  "homepage": "https://www.computerlink.com.au",
-  "license": "GPL-3.0-or-later",
-  "authors": [
-    {
-      "name": "Kurt Jensen",
-      "email": "kjensen@iaff106.com",
-      "homepage": "https://firemankurt.com",
-      "role": "Original Author"
+    "name": "josephcrowell/wn-passage-plugin",
+    "type": "winter-plugin",
+    "description": "Fast, Efficient permission system for controlling access to your website resources",
+    "keywords": [
+        "winter",
+        "cms",
+        "wintercms",
+        "user",
+        "authentication",
+        "permission",
+        "passage",
+        "key",
+        "group"
+    ],
+    "homepage": "https://www.computerlink.com.au",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Kurt Jensen",
+            "email": "kjensen@iaff106.com",
+            "homepage": "https://firemankurt.com",
+            "role": "Original Author"
+        },
+        {
+            "name": "Joseph Crowell",
+            "email": "joseph.w.crowell@gmail.com",
+            "homepage": "https://computerlink.com.au",
+            "role": "Author"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JosephCrowell\\Passage\\": ""
+        }
     },
-    {
-      "name": "Joseph Crowell",
-      "email": "joseph.w.crowell@gmail.com",
-      "homepage": "https://computerlink.com.au",
-      "role": "Author"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "JosephCrowell\\Passage\\": ""
-    }
-  },
-  "require": {
-    "php": ">=7.0",
-    "composer/installers": "~1.0",
-    "winter/wn-user-plugin": "~1.0"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "~1.0",
+        "winter/wn-user-plugin": "^2.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
