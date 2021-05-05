@@ -37,7 +37,9 @@
     "require": {
         "php": ">=7.0",
         "composer/installers": "~1.0",
-        "winter/wn-user-plugin": "^2.0"
+        "winter/wn-user-plugin": "^2.0",
+        "winter/wn-location-plugin": "^2.0",
+        "winter/wn-notify-plugin": "^2.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
