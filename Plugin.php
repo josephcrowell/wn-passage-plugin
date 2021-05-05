@@ -6,10 +6,14 @@ use App;
 use Backend;
 use BackendAuth;
 use Event;
-use Illuminate\Foundation\AliasLoader;
-use Winter\User\Controllers\UserGroups;
-use Winter\User\Models\UserGroup;
 use System\Classes\PluginBase;
+use Illuminate\Foundation\AliasLoader;
+use Winter\User\Controllers\Users as UsersController;
+use Winter\User\Controllers\UserGroups as UserGroupsController;
+use Winter\User\Models\User as UserModel;
+use Winter\User\Models\UserGroup as UserGroupModel;
+use Winter\Notify\NotifyRules\SaveDatabaseAction;
+use Winter\User\Classes\UserEventBase;
 
 /**
  * passage Plugin Information File
@@ -19,7 +23,7 @@ class Plugin extends PluginBase
     public static $keys = null;
     public static $groups = null;
 
-    public $require = ["Winter.User"];
+    public $require = ["Winter.User", "Winter.Location", "Winter.Notify"];
 
     /**
      * Returns information about this plugin.
@@ -45,7 +49,26 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        UserGroup::extend(function ($model) {
+        UserModel::extend(function ($model) {
+            $model->addFillable([
+                "phone",
+                "mobile",
+                "company",
+                "street_addr",
+                "city",
+                "zip",
+            ]);
+
+            $model->implement[] = "Winter.Location.Behaviors.LocationModel";
+
+            $model->morphMany["notifications"] = [
+                NotificationModel::class,
+                "name" => "notifiable",
+                "order" => "created_at desc",
+            ];
+        });
+
+        UserGroupModel::extend(function ($model) {
             $model->belongsToMany["passage_keys"] = [
                 "JosephCrowell\Passage\Models\Key",
                 "table" => "josephcrowell_passage_groups_keys",
@@ -55,9 +78,35 @@ class Plugin extends PluginBase
             ];
         });
 
-        UserGroups::extend(function ($controller) {
+        UsersController::extendFormFields(function ($widget) {
+            // Prevent extending of related form instead of the intended User form
+            if (!$widget->model instanceof UserModel) {
+                return;
+            }
+
+            $configFile = plugins_path(
+                "josephcrowell/passage/config/profile_fields.yaml"
+            );
+            $config = Yaml::parse(File::get($configFile));
+            $widget->addTabFields($config);
+        });
+
+        UserGroupsController::extend(function ($controller) {
             $controller->implement[] =
                 "JosephCrowell.Passage.Behaviors.KeyCopy";
+        });
+
+        SaveDatabaseAction::extend(function ($action) {
+            $action->addTableDefinition([
+                "label" => "User activity",
+                "class" => UserModel::class,
+                "param" => "user",
+            ]);
+        });
+
+        UserEventBase::extend(function ($event) {
+            $event->conditions[] =
+                \JosephCrowell\Passage\NotifyRules\UserLocationAttributeCondition::class;
         });
 
         Event::listen("backend.menu.extendItems", function ($manager) {
@@ -148,6 +197,14 @@ class Plugin extends PluginBase
         App::register("\JosephCrowell\Passage\Services\PassageServiceProvider");
     }
 
+    public function registerComponents()
+    {
+        return [
+            \JosephCrowell\Passage\Components\Notifications::class =>
+                "notifications",
+        ];
+    }
+
     /**
      * Registers any back-end permissions used by this plugin.
      *
@@ -202,6 +259,18 @@ class Plugin extends PluginBase
                     return app("PassageService")::inGroups($group_keys);
                 },
             ],
+        ];
+    }
+
+    public function registerNotificationRules()
+    {
+        return [
+            "events" => [],
+            "actions" => [],
+            "conditions" => [
+                \JosephCrowell\Passage\NotifyRules\UserLocationAttributeCondition::class,
+            ],
+            "presets" => '$/josephcrowell/passage/config/notify_presets.yaml',
         ];
     }
 
