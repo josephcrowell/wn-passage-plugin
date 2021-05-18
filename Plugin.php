@@ -2,10 +2,7 @@
 
 namespace JosephCrowell\Passage;
 
-use App;
-use Backend;
-use BackendAuth;
-use Event;
+use App, Backend, BackendAuth, Event, Yaml, File;
 use System\Classes\PluginBase;
 use Illuminate\Foundation\AliasLoader;
 use Winter\User\Controllers\Users as UsersController;
