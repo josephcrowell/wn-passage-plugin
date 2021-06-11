@@ -9,20 +9,20 @@ name: josephcrowell.passage::lang.key.model
 form: $/josephcrowell/passage/models/key/fields.yaml
 
 # Model Class name
-modelClass: JosephCrowell\Passage\Models\Key
+modelClass: JosephCrowell\Passage\Models\Permission
 
 # Default redirect location
-defaultRedirect: josephcrowell/passage/keys
+defaultRedirect: josephcrowell/passage/permissions
 
 # Create page
 create:
-  redirect: josephcrowell/passage/keys/update/:id
-  redirectClose: josephcrowell/passage/keys
+    redirect: josephcrowell/passage/permissions/update/:id
+    redirectClose: josephcrowell/passage/permissions
 
 # Update page
 update:
-  redirect: josephcrowell/passage/keys
-  redirectClose: josephcrowell/passage/keys
+    redirect: josephcrowell/passage/permissions
+    redirectClose: josephcrowell/passage/permissions
 
 # Preview page
 preview:

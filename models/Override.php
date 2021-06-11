@@ -1,23 +1,23 @@
 <?php namespace JosephCrowell\Passage\Models;
 
-use JosephCrowell\Passage\Models\Key;
+use JosephCrowell\Passage\Models\Permission;
 use Lang;
 use Model;
 use Winter\User\Models\User;
 
 /**
- * Variance Model
+ * Override Model
  */
-class Variance extends Model
+class Override extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
     /**
      * @var string The database table used by the model.
      */
-    public $table = "josephcrowell_passage_variances";
+    public $table = "josephcrowell_passage_overrides";
 
     public $rules = [
-        "key_id" => "required",
+        "permission_id" => "required",
         "user_id" => "required",
     ];
 
@@ -35,10 +35,10 @@ class Variance extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        "key" => [
-            "JosephCrowell\Passage\Models\Key",
-            "table" => "josephcrowell_passage_keys",
-            "key" => "key_id",
+        "permission" => [
+            "JosephCrowell\Passage\Models\Permission",
+            "table" => "josephcrowell_passage_permissions",
+            "key" => "permission_id",
             "otherkey" => "id",
         ],
         "user" => [
@@ -66,13 +66,13 @@ class Variance extends Model
         $invalid =
             $this->newQuery()
                 ->where("id", "!=", $this->id)
-                ->where("key_id", $this->key_id)
+                ->where("permission_id", $this->permission_id)
                 ->where("user_id", $this->user_id)
                 ->count() > 0;
         if ($invalid) {
             throw new \ValidationException([
                 "unique_attribute" => Lang::get(
-                    "josephcrowell.passage::lang.variance.error_duplicate"
+                    "josephcrowell.passage::lang.override.error_duplicate"
                 ),
             ]);
         }

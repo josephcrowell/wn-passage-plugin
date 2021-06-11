@@ -31,7 +31,7 @@ In the backend under Users you will find a button at the top called **"User Grou
 
 In the backend under Users (Winter.Users) you will find a sidemenu item called **"User Variances".**
 
-User variances allow you to add permission keys to individual users. You can also remove permission from users by adding a variance and unchecking the **Grant** checkbox.
+User overrides allow you to add permissions to individual users. You can also remove permission from users by adding a override and unchecking the **Grant** checkbox.
 
 <h3>User Permisions in Pages or Partials</h3>
 
@@ -78,26 +78,26 @@ On a page you may restrict access to a portion of view by using the following tw
 
 <h2>Available Twig Functions</h2>
 
-- can('KeyName') - Check a passage key name
-- hasKeyName('KeyName') - Check a passage key name
-- hasKeyNames(['KeyName1','KeyName2','KeyName3']) - Check an array of passage key names
-- hasKey(KeyId) (where KeyId is an integer) - Check a passage key id
-- hasKeys([KeyId1,KeyId2,KeyId3]) - Check an array of passage key ids
+-   can('KeyName') - Check a passage key name
+-   hasPermissionName('KeyName') - Check a passage key name
+-   hasPermissionNames(['KeyName1','KeyName2','KeyName3']) - Check an array of passage key names
+-   hasPermission(KeyId) (where KeyId is an integer) - Check a passage key id
+-   hasPermissions([KeyId1,KeyId2,KeyId3]) - Check an array of passage key ids
 
-- inGroupName('GroupName') - Check a passage group name
-- inGroupNames(['Group Name','Group Name 2','Group Name 3']) - Check an array of passage group names
-- inGroup('GroupCode') - Check a passage group code
-- inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
+-   inGroupName('GroupName') - Check a passage group name
+-   inGroupNames(['Group Name','Group Name 2','Group Name 3']) - Check an array of passage group names
+-   inGroup('GroupCode') - Check a passage group code
+-   inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
 
 <h3>User Permisions in Your Own Plugins</h3>
 
     // Passage Service Methods can be accessed in one of two ways:
-    $permission_keys_by_name = PassageService::passageKeys(); // by Alias
+    $permission_keys_by_name = PassageService::passagePermission(); // by Alias
     //OR
-    $permission_keys_by_name = app('PassageService')::passageKeys(); // by App Service
+    $permission_keys_by_name = app('PassageService')::passagePermission(); // by App Service
 
     // Get all permision keys for the user in an array
-    $permission_keys_by_name = app('PassageService')::passageKeys();
+    $permission_keys_by_name = app('PassageService')::passagePermission();
 
     /**
     * OR
@@ -105,8 +105,8 @@ On a page you may restrict access to a portion of view by using the following tw
     * In your plugin you may restrict access to a portion of code:
     **/
 
-    // check for permission directly using hasKeyName( $key_name )
-    $permissionGranted = app('PassageService')::hasKeyName('view_magic_dragon');
+    // check for permission directly using hasPermissionName( $permission_name )
+    $permissionGranted = app('PassageService')::hasPermissionName('view_magic_dragon');
     if($permissionGranted) {
     	// Do stuff
     }
@@ -119,12 +119,12 @@ On a page you may restrict access to a portion of view by using the following tw
     *
     * 	Example:
     * 	$model->perm_id = 5 which came from a dropdown that contained keys
-    * 	from PassageService::passageKeys();
+    * 	from PassageService::passagePermission();
     **/
 
     $model = Model::first();
-    // check for permission directly using hasKey( $key_id )
-    if(PassageService::hasKey($model->perm_id)) {
+    // check for permission directly using hasPermission( $permission_id )
+    if(PassageService::hasPermission($model->perm_id)) {
         // Do Stuff
     }else{
         // Do other Stuff if user does NOT have permission
@@ -161,16 +161,16 @@ On a page you may restrict access to a portion of view by using the following tw
 
 <h2>Available Passage Service Methods</h2>
 
-- passageKeys() - Get an array of all approved passage keys for the user
-- can($key_name) - (alias of hasKeyName())
-- hasKeyName($key_name) - Check a passage key name
-- hasKey(integer $key_id) - Check a passage key id
-- hasKeys(array $check_key_ids) - Check an array of passage key ids
-- hasKeyNames(array $check_keys) - Check an array of passage key names
-- passageGroups() - Get an array of all approved passage groups for the user
-- inGroupName($group_name) - Check a passage group name
-- hasGroupName($group_name) - (alias of inGroupName())
-- inGroup($group_code) - Check a passage group code
-- hasGroup($group_code) - (alias of inGroup())
-- inGroups(array $check_group_codes) - Check an array of passage group ids
-- inGroupNames(array $check_groups) - Check an array of passage group names
+-   passagePermission() - Get an array of all approved passage keys for the user
+-   can($permission_name) - (alias of hasPermissionName())
+-   hasPermissionName($permission_name) - Check a passage key name
+-   hasPermission(integer $permission_id) - Check a passage key id
+-   hasPermissions(array $check_permission_ids) - Check an array of passage key ids
+-   hasPermissionNames(array $check_permissions) - Check an array of passage key names
+-   passageGroups() - Get an array of all approved passage groups for the user
+-   inGroupName($group_name) - Check a passage group name
+-   hasGroupName($group_name) - (alias of inGroupName())
+-   inGroup($group_code) - Check a passage group code
+-   hasGroup($group_code) - (alias of inGroup())
+-   inGroups(array $check_group_codes) - Check an array of passage group ids
+-   inGroupNames(array $check_groups) - Check an array of passage group names

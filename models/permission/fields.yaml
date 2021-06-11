@@ -14,9 +14,9 @@ fields:
   people:
     label: josephcrowell.passage::lang.key.people
     type: partial
-    path: $/josephcrowell/passage/controllers/keys/_people.htm
+    path: $/josephcrowell/passage/controllers/permissions/_people.htm
 
   groups:
     label: josephcrowell.passage::lang.key.groups
     type: partial
-    path: $/josephcrowell/passage/controllers/keys/_groups.htm
+    path: $/josephcrowell/passage/controllers/permissions/_groups.htm

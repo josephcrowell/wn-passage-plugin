@@ -38,11 +38,11 @@ class UsersGroups extends Model
     ];
 
     public $belongsToMany = [
-        "passage_keys" => [
-            "JosephCrowell\Passage\Models\Key",
-            "table" => "josephcrowell_passage_groups_keys",
+        "passage_permissions" => [
+            "JosephCrowell\Passage\Models\Permission",
+            "table" => "josephcrowell_passage_groups_permissions",
             "key" => "user_group_id",
-            "otherKey" => "key_id",
+            "otherKey" => "permission_id",
         ],
     ];
 }

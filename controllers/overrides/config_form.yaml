@@ -1,0 +1,28 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: josephcrowell.passage::lang.override.model
+
+# Model Form Field configuration
+form: $/josephcrowell/passage/models/override/fields.yaml
+
+# Model Class name
+modelClass: JosephCrowell\Passage\Models\Override
+
+# Default redirect location
+defaultRedirect: josephcrowell/passage/overrides
+
+# Create page
+create:
+    redirect: josephcrowell/passage/overrides/update/:id
+    redirectClose: josephcrowell/passage/overrides
+
+# Update page
+update:
+    redirect: josephcrowell/passage/overrides
+    redirectClose: josephcrowell/passage/overrides
+
+# Preview page
+preview:

@@ -3,22 +3,25 @@
 # ===================================
 
 # Model List Column configuration
-list: $/josephcrowell/passage/models/key/columns.yaml
+list: $/josephcrowell/passage/models/override/columns.yaml
 
 # Model Class name
-modelClass: JosephCrowell\Passage\Models\Key
+modelClass: JosephCrowell\Passage\Models\Override
 
 # List Title
-title: josephcrowell.passage::lang.keys_comp.page_title
+title: josephcrowell.passage::lang.overrides_comp.page_title
 
 # Link URL for each record
-recordUrl: josephcrowell/passage/keys/update/:id
+recordUrl: josephcrowell/passage/overrides/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
 
 # Records to display per page
 recordsPerPage: 20
+
+# Display page numbers with pagination, disable to improve performance
+showPageNumbers: true
 
 # Displays the list column set up button
 showSetup: true
@@ -27,18 +30,18 @@ showSetup: true
 showSorting: true
 
 # Default sorting column
-defaultSort:
-  column: name
-  direction: asc
+# defaultSort:
+#     column: created_at
+#     direction: desc
 
 # Display checkboxes next to each record
-# showCheckboxes: true
+showCheckboxes: true
 
 # Toolbar widget configuration
 toolbar:
-  # Partial for toolbar buttons
-  buttons: list_toolbar
+    # Partial for toolbar buttons
+    buttons: list_toolbar
 
-  # Search widget configuration
-  search:
-    prompt: backend::lang.list.search_prompt
+    # Search widget configuration
+    search:
+        prompt: backend::lang.list.search_prompt

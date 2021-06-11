@@ -1,6 +1,10 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-  <li><a href="<?= Backend::url('josephcrowell/passage/keys') ?>">Keys</a></li>
+  <li>
+    <a href="<?= Backend::url('josephcrowell/passage/overrides') ?>"
+      ><?= e(trans('josephcrowell.passage::lang.overrides_comp.overrides')) ?></a
+    >
+  </li>
   <li><?= e($this->pageTitle) ?></li>
 </ul>
 <?php Block::endPut() ?>
@@ -14,9 +18,9 @@
 <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <p>
   <a
-    href="<?= Backend::url('josephcrowell/passage/keys') ?>"
+    href="<?= Backend::url('josephcrowell/passage/overrides') ?>"
     class="btn btn-default"
-    ><?= e(trans('josephcrowell.passage::lang.keys_comp.return')) ?></a
+    ><?= e(trans('josephcrowell.passage::lang.overrides_comp.return')) ?></a
   >
 </p>
 

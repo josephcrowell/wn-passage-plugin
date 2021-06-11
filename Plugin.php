@@ -2,25 +2,21 @@
 
 namespace JosephCrowell\Passage;
 
-use App, Backend, BackendAuth, Event, Yaml, File;
-use System\Classes\PluginBase;
+use App, Backend, BackendAuth, Event;
 use Illuminate\Foundation\AliasLoader;
-use Winter\User\Controllers\Users as UsersController;
-use Winter\User\Controllers\UserGroups as UserGroupsController;
-use Winter\User\Models\User as UserModel;
-use Winter\User\Models\UserGroup as UserGroupModel;
-use Winter\Notify\NotifyRules\SaveDatabaseAction;
-use Winter\User\Classes\UserEventBase;
+use System\Classes\PluginBase;
+use Winter\User\Controllers\UserGroups;
+use Winter\User\Models\UserGroup;
 
 /**
- * passage Plugin Information File
+ * Passage Plugin Information File
  */
 class Plugin extends PluginBase
 {
     public static $keys = null;
     public static $groups = null;
 
-    public $require = ["Winter.User", "Winter.Location", "Winter.Notify"];
+    public $require = ["Winter.User"];
 
     /**
      * Returns information about this plugin.
@@ -33,77 +29,31 @@ class Plugin extends PluginBase
             "name" => "passage",
             "description" =>
                 "Fast, Efficient permission system for controlling access to your website resources.",
-            "author" => "JosephCrowell",
-            "icon" => "icon-key",
-            "replaces" => "KurtJensen.Passage",
+            "author" => "Joseph Crowell",
+            "icon" => "icon-key"
         ];
     }
 
     public function messageURL()
     {
-        return "http://firemankurt.com/notices/";
+        return "https://computerlink.com.au/notices/";
     }
 
     public function boot()
     {
-        UserModel::extend(function ($model) {
-            $model->addFillable([
-                "phone",
-                "mobile",
-                "company",
-                "street_addr",
-                "city",
-                "zip",
-            ]);
-
-            $model->implement[] = "Winter.Location.Behaviors.LocationModel";
-
-            $model->morphMany["notifications"] = [
-                NotificationModel::class,
-                "name" => "notifiable",
-                "order" => "created_at desc",
-            ];
-        });
-
-        UserGroupModel::extend(function ($model) {
-            $model->belongsToMany["passage_keys"] = [
-                "JosephCrowell\Passage\Models\Key",
-                "table" => "josephcrowell_passage_groups_keys",
+        UserGroup::extend(function ($model) {
+            $model->belongsToMany["passage_permissions"] = [
+                "JosephCrowell\Passage\Models\Permission",
+                "table" => "josephcrowell_passage_groups_permissions",
                 "key" => "user_group_id",
-                "otherKey" => "key_id",
+                "otherKey" => "permission_id",
                 "order" => "name",
             ];
         });
 
-        UsersController::extendFormFields(function ($widget) {
-            // Prevent extending of related form instead of the intended User form
-            if (!$widget->model instanceof UserModel) {
-                return;
-            }
-
-            $configFile = plugins_path(
-                "josephcrowell/passage/config/profile_fields.yaml"
-            );
-            $config = Yaml::parse(File::get($configFile));
-            $widget->addTabFields($config);
-        });
-
-        UserGroupsController::extend(function ($controller) {
+        UserGroups::extend(function ($controller) {
             $controller->implement[] =
-                "JosephCrowell.Passage.Behaviors.KeyCopy";
-        });
-
-        SaveDatabaseAction::extend(function ($action) {
-            $action->addTableDefinition([
-                "label" => "User activity",
-                "class" => UserModel::class,
-                "param" => "user",
-            ]);
-        });
-
-        UserEventBase::extend(function ($event) {
-            $event->conditions[] =
-                \JosephCrowell\Passage\NotifyRules\UserLocationAttributeCondition::class;
+                "JosephCrowell.Passage.Behaviors.PermissionCopy";
         });
 
         Event::listen("backend.menu.extendItems", function ($manager) {
@@ -115,7 +65,7 @@ class Plugin extends PluginBase
                     "owner" => "Winter.User",
                     "url" => Backend::url("winter/user/usergroups"),
                 ],
-                "passage_keys" => [
+                "passage_permissions" => [
                     "label" =>
                         "josephcrowell.passage::lang.plugin.backend_menu",
                     "icon" => "icon-key",
@@ -123,17 +73,17 @@ class Plugin extends PluginBase
                     "code" => "passage",
                     "owner" => "Winter.User",
                     "permissions" => ["josephcrowell.passage.*"],
-                    "url" => Backend::url("josephcrowell/passage/keys"),
+                    "url" => Backend::url("josephcrowell/passage/permissions"),
                 ],
-                "variance" => [
+                "override" => [
                     "label" =>
-                        "josephcrowell.passage::lang.plugin.backend_variance",
+                        "josephcrowell.passage::lang.plugin.backend_override",
                     "icon" => "icon-key",
                     "order" => 1002,
                     "code" => "passage",
                     "owner" => "Winter.User",
                     "permissions" => ["josephcrowell.passage.*"],
-                    "url" => Backend::url("josephcrowell/passage/variances"),
+                    "url" => Backend::url("josephcrowell/passage/overrides"),
                 ],
             ]);
         });
@@ -160,7 +110,7 @@ class Plugin extends PluginBase
 
             $widget->addFields(
                 [
-                    "passage_keys" => [
+                    "passage_permissions" => [
                         "tab" => "josephcrowell.passage::lang.plugin.field_tab",
                         "label" =>
                             "josephcrowell.passage::lang.plugin.field_label",
@@ -179,7 +129,7 @@ class Plugin extends PluginBase
                         "span" => "right",
                         "type" => "partial",
                         "path" =>
-                            '$/josephcrowell/passage/controllers/keys/_copy.htm',
+                            '$/josephcrowell/passage/controllers/permissions/_copy.htm',
                     ],
                 ],
                 "primary"
@@ -189,17 +139,9 @@ class Plugin extends PluginBase
         $alias = AliasLoader::getInstance();
         $alias->alias(
             "PassageService",
-            "\JosephCrowell\Passage\Classes\KeyRing"
+            "\JosephCrowell\Passage\Classes\PermissionsService"
         );
         App::register("\JosephCrowell\Passage\Services\PassageServiceProvider");
-    }
-
-    public function registerComponents()
-    {
-        return [
-            \JosephCrowell\Passage\Components\Notifications::class =>
-                "notifications",
-        ];
     }
 
     /**
@@ -212,13 +154,13 @@ class Plugin extends PluginBase
         return [
             "josephcrowell.passage.*" => [
                 "tab" => "Winter.User::lang.plugin.tab",
-                "label" => "josephcrowell.passage::lang.plugin.permiss_label",
+                "label" => "josephcrowell.passage::lang.plugin.permission_label",
             ],
 
             "josephcrowell.passage.usergroups" => [
                 "tab" => "Winter.User::lang.plugin.tab",
                 "label" =>
-                    "josephcrowell.passage::lang.plugin.permiss_label_ug",
+                    "josephcrowell.passage::lang.plugin.permission_label_ug",
             ],
         ];
     }
@@ -228,19 +170,19 @@ class Plugin extends PluginBase
         return [
             "functions" => [
                 "can" => function ($key) {
-                    return app("PassageService")::hasKeyName($key);
+                    return app("PassageService")::hasPermissionName($key);
                 },
-                "hasKeyName" => function ($key) {
-                    return app("PassageService")::hasKeyName($key);
+                "hasPermissionName" => function ($key) {
+                    return app("PassageService")::hasPermissionName($key);
                 },
-                "hasKeyNames" => function ($keys) {
-                    return app("PassageService")::hasKeyNames($keys);
+                "hasPermissionNames" => function ($keys) {
+                    return app("PassageService")::hasPermissionNames($keys);
                 },
-                "hasKey" => function ($key_id) {
-                    return app("PassageService")::hasKey($key_id);
+                "hasPermission" => function ($permission_id) {
+                    return app("PassageService")::hasPermission($permission_id);
                 },
-                "hasKeys" => function ($key_ids) {
-                    return app("PassageService")::hasKeys($key_ids);
+                "hasPermissions" => function ($permission_ids) {
+                    return app("PassageService")::hasPermissions($permission_ids);
                 },
 
                 "inGroupName" => function ($group) {
@@ -257,84 +199,5 @@ class Plugin extends PluginBase
                 },
             ],
         ];
-    }
-
-    public function registerNotificationRules()
-    {
-        return [
-            "events" => [],
-            "actions" => [],
-            "conditions" => [
-                \JosephCrowell\Passage\NotifyRules\UserLocationAttributeCondition::class,
-            ],
-            "presets" => '$/josephcrowell/passage/config/notify_presets.yaml',
-        ];
-    }
-
-    public static function globalPassageKeys()
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::globalPassageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::globalPassageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
-        return app("PassageService")::passageKeys();
-    }
-
-    public static function passageKeys()
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::passageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::passageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
-        return app("PassageService")::passageKeys();
-    }
-
-    public static function hasKeyName($key_name)
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::hasKeyName() called. Use PassageService::hasKeyName() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasKeyName() called. Use app('PassageService')::hasKeyName() instead.", E_USER_DEPRECATED);
-        $keys = app("PassageService")::passageKeys();
-        return in_array($key_name, $keys);
-    }
-
-    public static function hasKey($key_id)
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::hasKey() called. Use PassageService::hasKey() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasKey() called. Use app('PassageService')::hasKey() instead.", E_USER_DEPRECATED);
-        $keys = app("PassageService")::passageKeys();
-        return array_key_exists($key_id, $keys);
-    }
-
-    public static function passageGroups()
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::passageGroups() called. Use PassageService::passageGroups() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::passageGroups() called. Use app('PassageService')::passageGroups() instead.", E_USER_DEPRECATED);
-        return app("PassageService")::passageGroups();
-    }
-
-    public static function hasGroupName($group_name)
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::hasGroupName() called. Use PassageService::hasGroupName() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasGroupName() called. Use app('PassageService')::hasGroupName() instead.", E_USER_DEPRECATED);
-        $groups = app("PassageService")::passageGroups();
-        return in_array($group_name, $groups);
-    }
-
-    public static function hasGroup($group_code)
-    {
-        traceLog(
-            "Deprecated method \JosephCrowell\Passage\Plugin::hasGroup() called. Use PassageService::hasGroup() instead. See Passage Upgrade Guide."
-        );
-        //trigger_error("Deprecated method \JosephCrowell\Passage\Plugin::hasGroup() called. Use app('PassageService')::hasGroup() instead.", E_USER_DEPRECATED);
-        $groups = app("PassageService")::passageGroups();
-        return array_key_exists($group_code, $groups);
     }
 }

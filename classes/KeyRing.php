@@ -3,8 +3,8 @@
 namespace JosephCrowell\Passage\Classes;
 
 use Auth;
-use JosephCrowell\Passage\Models\Key;
-use JosephCrowell\Passage\Models\Variance;
+use JosephCrowell\Passage\Models\Permission;
+use JosephCrowell\Passage\Models\Override;
 
 /**
  * Passage Service Class
@@ -13,11 +13,11 @@ use JosephCrowell\Passage\Models\Variance;
  * @package josephcrowell\passage
  * @author Kurt Jensen
  */
-class KeyRing
+class PermissionsService
 {
     use \Winter\Storm\Support\Traits\Singleton;
 
-    public static $keys = null;
+    public static $permissions = null;
     public static $groups = null;
 
     public function __construct()
@@ -40,36 +40,36 @@ class KeyRing
     }
 
     /**
-     * Alias of hasKeyName()
-     * @param  string  $key_name name of Key
+     * Alias of hasPermissionName()
+     * @param  string  $permission_name name of Key
      * @return boolean  true if user has key
      */
-    public static function can($key_name)
+    public static function can($permission_name)
     {
-        return self::hasKeyName($key_name);
+        return self::hasPermissionName($permission_name);
     }
 
     /**
      * Get an array of all keys approved for user
      * @return array approved user keys names keyed by id
      */
-    public static function passageKeys()
+    public static function passagePermission()
     {
-        if (self::$keys === null) {
+        if (self::$permissions === null) {
             if (!self::getUser()) {
                 return [];
             }
             $add = $subtract = [];
-            $variances = Variance::where("user_id", self::getUser()->id)->get([
+            $overrides = Variance::where("user_id", self::getUser()->id)->get([
                 "user_id",
-                "key_id",
+                "permission_id",
                 "grant",
             ]);
-            foreach ($variances as $variance) {
-                if ($variance->grant) {
-                    $add[] = $variance->key_id;
+            foreach ($overrides as $override) {
+                if ($override->grant) {
+                    $add[] = $override->permission_id;
                 } else {
-                    $subtract[] = $variance->key_id;
+                    $subtract[] = $override->permission_id;
                 }
             }
 
@@ -82,54 +82,54 @@ class KeyRing
             if ($add) {
                 $query->orWhereIn("id", $add);
             }
-            self::$keys = $query->lists("name", "id");
+            self::$permissions = $query->lists("name", "id");
         }
-        return self::$keys;
+        return self::$permissions;
     }
 
     /**
      * Test if user has a approved key of a given name
-     * @param  string  $key_name name of Key
+     * @param  string  $permission_name name of Key
      * @return boolean  true if user has key
      */
-    public static function hasKeyName(string $key_name)
+    public static function hasPermissionName(string $permission_name)
     {
-        $keys = self::passageKeys();
-        return in_array($key_name, $keys);
+        $permissions = self::passagePermission();
+        return in_array($permission_name, $permissions);
     }
 
     /**
      * Test if user has a approved key of a given key id
-     * @param  integer  $key_id id of a Key
+     * @param  integer  $permission_id id of a Key
      * @return boolean  true if user has corresponding key
      */
-    public static function hasKey(int $key_id)
+    public static function hasPermission(int $permission_id)
     {
-        $keys = self::passageKeys();
-        return array_key_exists($key_id, $keys);
+        $permissions = self::passagePermission();
+        return array_key_exists($permission_id, $permissions);
     }
 
     /**
      * Test if user has all keys in a given array approved
-     * @param  array  $check_keys names of Keys to check
+     * @param  array  $check_permissions names of Keys to check
      * @return boolean  true if user has corresponding keys
      */
-    public static function hasKeys(array $check_key_ids)
+    public static function hasPermissions(array $check_permission_ids)
     {
-        $keys = array_flip(self::passageKeys());
-        return count(array_intersect($check_key_ids, $keys)) ==
-            count($check_key_ids);
+        $permissions = array_flip(self::passagePermission());
+        return count(array_intersect($check_permission_ids, $permissions)) ==
+            count($check_permission_ids);
     }
 
     /**
      * Test if user has all keys in a given array approved
-     * @param  array  $check_keys names of Keys to check
+     * @param  array  $check_permissions names of permissions to check
      * @return boolean  true if user has corresponding keys
      */
-    public static function hasKeyNames(array $check_keys)
+    public static function hasPermissionNames(array $check_permissions)
     {
-        $keys = self::passageKeys();
-        return count(array_intersect($check_keys, $keys)) == count($check_keys);
+        $permissions = self::passagePermission();
+        return count(array_intersect($check_permissions, $permissions)) == count($check_permissions);
     }
 
     /**

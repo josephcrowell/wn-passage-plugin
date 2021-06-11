@@ -1,0 +1,14 @@
+# ignore all MD files
+*.md
+
+# individual template files which can't be parsed properly
+/classes/delivery/partials/_display.htm
+/classes/delivery/partials/_edit.htm
+/classes/delivery/partials/_model.htm
+/classes/eprofile/partials/_display.htm
+/classes/eprofile/partials/_edit.htm
+/classes/eprofile/partials/_model.htm
+/classes/financial/partials/_display.htm
+/classes/financial/partials/_edit.htm
+/classes/financial/partials/_model.htm
+/updates/ProfileUpdate.htm

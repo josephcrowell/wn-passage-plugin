@@ -4,83 +4,65 @@ return [
         //Plugin File
         "name" => "Passage",
         "description" => "Permission system for front-end user groups.",
-        "backend_menu" => "Passage Keys",
-        "backend_variance" => "User Variances",
-        "field_tab" => "Passage Keys",
-        "field_label" => "Passage Keys",
-        "field_commentAbove" =>
-            "Check all keys (permissions) that you want this group to have.",
-        "field_emptyOption" =>
-            "There are no pasage keys, you should create some!",
-        "permiss_label" =>
-            "Manage key names for front-end user-group permissions.",
+        "backend_menu" => "Passage Permissions",
+        "backend_override" => "User Overrides",
+        "field_tab" => "Passage Permissions",
+        "field_label" => "Passage Permissions",
+        "field_commentAbove" => "Check all permissions (permissions) that you want this group to have.",
+        "field_emptyOption" => "There are no passage permissions, you should create some!",
+        "permiss_label" => "Manage permission names for front-end user-group permissions.",
         "permiss_label_ug" => "Manage front-end user-group permissions.",
     ],
-    "tab" => [
-        "profile" => "Profile",
-    ],
-    "user" => [
-        "phone" => "Phone",
-        "mobile" => "Mobile",
-        "company" => "Company",
-        "city" => "City",
-        "zip" => "Zip",
-        "street_addr" => "Street Address",
-    ],
-    "keys_comp" => [
+    "permissions_comp" => [
         //Controller
-        "page_title" => "Manage Passage Keys",
-        "new" => "New Key",
-        "keys" => "Keys",
-        "return" => "Return to keys list",
-        "saving" => "Saving Key...",
-        "deleting" => "Deleting Key...",
-        "delete_confirm" => "Are you sure you want to delete this key?",
-        "delete_selected_confirm" =>
-            "Are you sure you want to delete the selected Keys?",
+        "page_title" => "Manage Passage Permissions",
+        "new" => "New Permission",
+        "permissions" => "Permissions",
+        "return" => "Return to permissions list",
+        "saving" => "Saving Permission...",
+        "deleting" => "Deleting Permission...",
+        "delete_confirm" => "Are you sure you want to delete this permission?",
+        "delete_selected_confirm" => "Are you sure you want to delete the selected Permissions?",
     ],
-    "key" => [
+    "permission" => [
         // Model
-        "model" => "Key",
-        "models" => "Keys",
+        "model" => "Permission",
+        "models" => "Permissions",
         "id" => "ID",
         "name" => "Name",
         "description" => "Description",
         "updated" => "Updated",
         "created" => "Created",
-        "people" =>
-            "People associated by allowed groups ( Variances not considered )",
-        "groups" => "Groups having this key",
+        "people" => "People associated by allowed groups ( Overrides not considered )",
+        "groups" => "Groups having this permission",
     ],
 
-    "variances_comp" => [
+    "overrides_comp" => [
         //Controller
-        "page_title" => "Manage Passage Variances",
-        "new" => "New Variance",
-        "variances" => "Variances",
-        "return" => "Return to variance list",
-        "saving" => "Saving Variance...",
-        "deleting" => "Deleting Variance...",
-        "delete_confirm" => "Are you sure you want to delete this variance?",
-        "delete_selected_confirm" =>
-            "Are you sure you want to delete the selected Variances?",
+        "page_title" => "Manage Passage Overrides",
+        "new" => "New Override",
+        "overrides" => "Overrides",
+        "return" => "Return to override list",
+        "saving" => "Saving Override...",
+        "deleting" => "Deleting Override...",
+        "delete_confirm" => "Are you sure you want to delete this override?",
+        "delete_selected_confirm" => "Are you sure you want to delete the selected Overrides?",
         "delete_selected" => "Delete Selected",
     ],
-    "variance" => [
+    "override" => [
         // Model
-        "model" => "Variance",
-        "models" => "Variances",
+        "model" => "Override",
+        "models" => "Overrides",
         "user_id" => "User",
-        "key_id" => "Passage Key",
+        "permission_id" => "Passage Permission",
         "grant" => "Grant",
         "description" => "Description / Note",
         "updated" => "Updated",
         "created" => "Created",
 
-        "error_duplicate" =>
-            "Duplicate variance. Locate and edit existing variance instead of creating duplicate.",
+        "error_duplicate" => "Duplicate override. Locate and edit existing override instead of creating duplicate.",
     ],
     "choose_one" => "-- Choose One --",
     "copy" => "Copy From Another Group",
-    "copy_comment" => "Click group name to copy all keys from that group",
+    "copy_comment" => "Click group name to copy all permissions from that group",
 ];

@@ -5,8 +5,8 @@ namespace JosephCrowell\Passage\Controllers;
 use BackendMenu;
 use Backend\Classes\Controller;
 use DB;
-use JosephCrowell\Passage\Models\Key;
-use JosephCrowell\Passage\Models\UserGroupsKeys;
+use JosephCrowell\Passage\Models\Permission;
+use JosephCrowell\Passage\Models\UserGroupsPermissions;
 use Winter\User\Models\User;
 use System\Classes\PluginManager;
 
@@ -29,7 +29,7 @@ class Keys extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext("Winter.User", "user", "passage_keys");
+        BackendMenu::setContext("Winter.User", "user", "passage_permissions");
     }
 
     public function index()
@@ -118,7 +118,7 @@ class Keys extends Controller
             $permRoles = DB::table("shahiemseymor_permission_role")->get();
             foreach ($permRoles as $pr) {
                 $newRows[] = [
-                    "key_id" => $pr->permission_id,
+                    "permission_id" => $pr->permission_id,
                     "user_group_id" => $pr->role_id,
                 ];
             }
@@ -129,10 +129,10 @@ class Keys extends Controller
 
     public static function userList($key)
     {
-        $query = User::whereHas("groups.passage_keys", function ($q) use (
+        $query = User::whereHas("groups.passage_permissions", function ($q) use (
             $key
         ) {
-            $q->where("key_id", $key);
+            $q->where("permission_id", $key);
         });
 
         return $query

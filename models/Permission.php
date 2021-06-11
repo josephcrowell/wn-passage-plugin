@@ -3,14 +3,14 @@
 use Model;
 
 /**
- * Key Model
+ * Permission Model
  */
-class Key extends Model
+class Permission extends Model
 {
     /**
      * @var string The database table used by the model.
      */
-    public $table = "josephcrowell_passage_keys";
+    public $table = "josephcrowell_passage_permissions";
 
     /**
      * @var array Guarded fields
@@ -28,13 +28,13 @@ class Key extends Model
     public $belongsToMany = [
         "groups" => [
             "Winter\User\Models\UserGroup",
-            "table" => "josephcrowell_passage_groups_keys",
-            "key" => "key_id",
+            "table" => "josephcrowell_passage_groups_permissions",
+            "key" => "permission_id",
             "otherkey" => "user_group_id",
         ],
         "users_count" => [
             "Winter\User\Models\UserGroup",
-            "table" => "josephcrowell_passage_groups_keys",
+            "table" => "josephcrowell_passage_groups_permissions",
             "count" => true,
         ],
     ];

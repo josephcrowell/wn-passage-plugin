@@ -6,9 +6,9 @@ use BackendMenu;
 use Backend\Classes\Controller;
 
 /**
- * Variances Back-end Controller
+ * Overrides Back-end Controller
  */
-class Variances extends Controller
+class Overrides extends Controller
 {
     public $implement = [
         "Backend.Behaviors.FormController",
@@ -22,6 +22,6 @@ class Variances extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext("Winter.User", "user", "variances");
+        BackendMenu::setContext("Winter.User", "user", "overrides");
     }
 }

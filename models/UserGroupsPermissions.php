@@ -3,14 +3,14 @@
 use Model;
 
 /**
- * UserGroupsKeys Model
+ * UserGroupsPermissions Model
  */
-class UserGroupsKeys extends Model
+class UserGroupsPermissions extends Model
 {
     /**
      * @var string The database table used by the model.
      */
-    public $table = "josephcrowell_passage_groups_keys";
+    public $table = "josephcrowell_passage_groups_permissions";
 
     /**
      * @var array Guarded fields
@@ -26,17 +26,17 @@ class UserGroupsKeys extends Model
      * @var array Relations
      */
     public $hasOne = [
-        "key" => [
-            "JosephCrowell\Passage\Models\Key",
-            "table" => "josephcrowell_passage_keys",
-            "key" => "key_id",
-            "otherkey" => "id",
+        "permission" => [
+            "JosephCrowell\Passage\Models\Permission",
+            "table" => "josephcrowell_passage_permissions",
+            "key" => "permission_id",
+            "otherKey" => "id",
         ],
         "group" => [
             "Winter\User\Models\UserGroup",
             "table" => "user_groups",
             "key" => "user_group_id",
-            "otherkey" => "id",
+            "otherKey" => "id",
         ],
     ];
 }

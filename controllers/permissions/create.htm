@@ -1,8 +1,8 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
   <li>
-    <a href="<?= Backend::url('josephcrowell/passage/variances') ?>"
-      ><?= e(trans('josephcrowell.passage::lang.variances_comp.variances')) ?></a
+    <a href="<?= Backend::url('josephcrowell/passage/permissions') ?>"
+      ><?= e(trans('josephcrowell.passage::lang.keys_comp.keys')) ?></a
     >
   </li>
   <li><?= e($this->pageTitle) ?></li>
@@ -39,7 +39,7 @@
     </button>
     <span class="btn-text">
       <?= e(trans('backend::lang.form.or')) ?>
-      <a href="<?= Backend::url('josephcrowell/passage/variances') ?>"
+      <a href="<?= Backend::url('josephcrowell/passage/permissions') ?>"
         ><?= e(trans('backend::lang.form.cancel')) ?></a
       >
     </span>
@@ -53,9 +53,9 @@
 <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <p>
   <a
-    href="<?= Backend::url('josephcrowell/passage/variances') ?>"
+    href="<?= Backend::url('josephcrowell/passage/permissions') ?>"
     class="btn btn-default"
-    ><?= e(trans('josephcrowell.passage::lang.variances_comp.return')) ?></a
+    ><?= e(trans('josephcrowell.passage::lang.keys_comp.return')) ?></a
   >
 </p>
 

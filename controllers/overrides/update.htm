@@ -1,8 +1,8 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
   <li>
-    <a href="<?= Backend::url('josephcrowell/passage/variances') ?>"
-      ><?= e(trans('josephcrowell.passage::lang.variances_comp.variances')) ?></a
+    <a href="<?= Backend::url('josephcrowell/passage/overrides') ?>"
+      ><?= e(trans('josephcrowell.passage::lang.overrides_comp.overrides')) ?></a
     >
   </li>
   <li><?= e($this->pageTitle) ?></li>
@@ -23,7 +23,7 @@
       data-request="onSave"
       data-request-data="redirect:0"
       data-hotkey="ctrl+s, cmd+s"
-      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.variances_comp.saving')) ?>"
+      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.overrides_comp.saving')) ?>"
       class="btn btn-primary"
     >
       <?= e(trans('backend::lang.form.save')) ?>
@@ -33,7 +33,7 @@
       data-request="onSave"
       data-request-data="close:1"
       data-hotkey="ctrl+enter, cmd+enter"
-      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.variances_comp.saving')) ?>"
+      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.overrides_comp.saving')) ?>"
       class="btn btn-default"
     >
       <?= e(trans('backend::lang.form.save_and_close')) ?>
@@ -42,12 +42,12 @@
       type="button"
       class="oc-icon-trash-o btn-icon danger pull-right"
       data-request="onDelete"
-      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.variances_comp.deleting')) ?>"
-      data-request-confirm="<?= e(trans('josephcrowell.passage::lang.variances_comp.delete_confirm')) ?>"
+      data-load-indicator="<?= e(trans('josephcrowell.passage::lang.overrides_comp.deleting')) ?>"
+      data-request-confirm="<?= e(trans('josephcrowell.passage::lang.overrides_comp.delete_confirm')) ?>"
     ></button>
     <span class="btn-text">
       <?= e(trans('backend::lang.form.or')) ?>
-      <a href="<?= Backend::url('josephcrowell/passage/variances') ?>"
+      <a href="<?= Backend::url('josephcrowell/passage/overrides') ?>"
         ><?= e(trans('backend::lang.form.cancel')) ?></a
       >
     </span>
@@ -61,9 +61,9 @@
 <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <p>
   <a
-    href="<?= Backend::url('josephcrowell/passage/variances') ?>"
+    href="<?= Backend::url('josephcrowell/passage/overrides') ?>"
     class="btn btn-default"
-    ><?= e(trans('josephcrowell.passage::lang.variances_comp.return')) ?></a
+    ><?= e(trans('josephcrowell.passage::lang.overrides_comp.return')) ?></a
   >
 </p>
 

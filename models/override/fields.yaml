@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+  user_id:
+    label: josephcrowell.passage::lang.override.user_id
+    type: dropdown
+  permission_id:
+    label: josephcrowell.passage::lang.override.permission_id
+    type: dropdown
+  grant:
+    label: josephcrowell.passage::lang.override.grant
+    type: checkbox
+  description:
+    label: josephcrowell.passage::lang.override.description

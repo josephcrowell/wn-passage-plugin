@@ -23,8 +23,7 @@
 1.2.0:
     - Convert to Winter CMS and change owner to Joseph Crowell
     - rename_tables.php
-1.3.0:
-    - Merge deprecated UserPlus plugin with Passage
-    - user_add_location_fields.php
-    - user_add_profile_fields.php
-    - user_add_mobile_field.php
+2.0.0:
+    - Undo UserPlus merge and refactor functions. Existing user fields will not be removed to prevent data loss as they could be added to child plugins.
+    - "!!! This update contains breaking changes to existing functions, databases and twig calls. Many functions have been refactored. All key functions are now permission functions and all variance functions are now override functions."
+    - version2_tables.php
