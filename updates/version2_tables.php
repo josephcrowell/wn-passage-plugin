@@ -13,6 +13,9 @@ class Version2Tables extends Migration
             $table->renameColumn("key_id", "permission_id");
 
             $table->renameIndex("key_id", "permission_id");
+
+            $table->dropPrimary("user_group_id");
+            $table->primary(["user_group_id", "permission_id"], "user_group_id");
         });
         Schema::rename("josephcrowell_passage_groups_keys", "josephcrowell_passage_groups_permissions");
 
@@ -32,6 +35,9 @@ class Version2Tables extends Migration
             $table->renameColumn("permission_id", "key_id");
 
             $table->renameIndex("permission_id", "key_id");
+
+            $table->dropPrimary("user_group_id");
+            $table->primary(["user_group_id", "key_id"], "user_group_id");
         });
         Schema::rename("josephcrowell_passage_groups_permissions", "josephcrowell_passage_groups_keys");
 
