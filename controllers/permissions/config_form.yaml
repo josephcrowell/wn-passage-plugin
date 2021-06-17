@@ -3,10 +3,10 @@
 # ===================================
 
 # Record name
-name: josephcrowell.passage::lang.key.model
+name: josephcrowell.passage::lang.permission.model
 
 # Model Form Field configuration
-form: $/josephcrowell/passage/models/key/fields.yaml
+form: $/josephcrowell/passage/models/permission/fields.yaml
 
 # Model Class name
 modelClass: JosephCrowell\Passage\Models\Permission

@@ -9,7 +9,7 @@ columns:
     label: josephcrowell.passage::lang.override.user_id
     searchable: true
   permission_id:
-    relation: key
+    relation: permission
     select: name
     label: josephcrowell.passage::lang.override.permission_id
     searchable: true

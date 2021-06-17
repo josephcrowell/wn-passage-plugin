@@ -4,19 +4,19 @@
 
 fields:
   id:
-    label: josephcrowell.passage::lang.key.id
+    label: josephcrowell.passage::lang.permission.id
     disabled: true
   name:
-    label: josephcrowell.passage::lang.key.name
+    label: josephcrowell.passage::lang.permission.name
   description:
-    label: josephcrowell.passage::lang.key.description
+    label: josephcrowell.passage::lang.permission.description
 
   people:
-    label: josephcrowell.passage::lang.key.people
+    label: josephcrowell.passage::lang.permission.people
     type: partial
     path: $/josephcrowell/passage/controllers/permissions/_people.htm
 
   groups:
-    label: josephcrowell.passage::lang.key.groups
+    label: josephcrowell.passage::lang.permission.groups
     type: partial
     path: $/josephcrowell/passage/controllers/permissions/_groups.htm

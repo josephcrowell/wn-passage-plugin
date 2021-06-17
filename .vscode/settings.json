@@ -3,6 +3,9 @@
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
     "cSpell.words": ["assignruns", "lightbox", "setactive", "setinactive"],
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

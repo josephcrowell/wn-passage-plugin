@@ -11,16 +11,13 @@ use Winter\User\Models\User;
 use System\Classes\PluginManager;
 
 /**
- * Keys Back-end Controller
+ * Permissions Back-end Controller
  */
-class Keys extends Controller
+class Permissions extends Controller
 {
     public $addBtns = "";
-    public $requiredPermissions = ["josephcrowell.passage.keys"];
-    public $implement = [
-        "Backend.Behaviors.FormController",
-        "Backend.Behaviors.ListController",
-    ];
+    public $requiredPermissions = ["josephcrowell.passage.permissions"];
+    public $implement = ["Backend.Behaviors.FormController", "Backend.Behaviors.ListController"];
 
     public $formConfig = "config_form.yaml";
     public $listConfig = "config_list.yaml";
@@ -43,14 +40,14 @@ class Keys extends Controller
                 <div class="callout callout-info">
                     <div class="header">
                     <p>It looks like you have "Frontend User Roles Manager" installed.<br />
-                    I can try help you transfer data over to the "Passage Keys" to save you time.<br />
+                    I can try help you transfer data over to the "Passage Permissions" to save you time.<br />
                     For best results press red buttons in order from Left to Right.</p>
                     <a href="#"
                       data-request="onConvertFromPerms"
                       data-load-indicator="Loading..."
-                      data-request-confirm="Are you sure you want all Permissions copied into Passage Keys?"
+                      data-request-confirm="Are you sure you want all Permissions copied into Passage Permissions?"
                       class="btn btn-danger  oc-icon-exchange ">
-                      (1) Transfer Permissions to Passage Keys
+                      (1) Transfer Permissions to Passage Permissions
                     </a>
                     <p>&nbsp;</p>
 
@@ -65,9 +62,9 @@ class Keys extends Controller
                     <a href="#"
                       data-request="onConvertFromRolesPerms"
                       data-load-indicator="Loading..."
-                      data-request-confirm="Are you sure you want all Goup Permissions copied into Group Passage Keys?"
+                      data-request-confirm="Are you sure you want all Goup Permissions copied into Group Passage Permissions?"
                       class="btn btn-danger  oc-icon-exchange ">
-                      (3) Transfer Goup Permissions to Group Passage Keys
+                      (3) Transfer Goup Permissions to Group Passage Permissions
                     </a>
                     <p class="small">This notice will go away if you uninstall "Frontend User Roles Manager".</p>
                     </div>
@@ -89,7 +86,7 @@ class Keys extends Controller
                     "description" => $perm->display_name,
                 ];
             }
-            Key::insert($newRows);
+            Permission::insert($newRows);
         }
     }
 
@@ -123,16 +120,14 @@ class Keys extends Controller
                 ];
             }
 
-            UserGroupsKeys::insert($newRows);
+            UserGroupsPermissions::insert($newRows);
         }
     }
 
-    public static function userList($key)
+    public static function userList($permission)
     {
-        $query = User::whereHas("groups.passage_permissions", function ($q) use (
-            $key
-        ) {
-            $q->where("permission_id", $key);
+        $query = User::whereHas("groups.passage_permissions", function ($q) use ($permission) {
+            $q->where("permission_id", $permission);
         });
 
         return $query

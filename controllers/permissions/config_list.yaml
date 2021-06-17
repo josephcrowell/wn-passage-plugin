@@ -3,13 +3,13 @@
 # ===================================
 
 # Model List Column configuration
-list: $/josephcrowell/passage/models/key/columns.yaml
+list: $/josephcrowell/passage/models/permission/columns.yaml
 
 # Model Class name
 modelClass: JosephCrowell\Passage\Models\Permission
 
 # List Title
-title: josephcrowell.passage::lang.keys_comp.page_title
+title: josephcrowell.passage::lang.permissions_comp.page_title
 
 # Link URL for each record
 recordUrl: josephcrowell/passage/permissions/update/:id

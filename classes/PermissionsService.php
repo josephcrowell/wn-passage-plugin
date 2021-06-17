@@ -41,8 +41,8 @@ class PermissionsService
 
     /**
      * Alias of hasPermissionName()
-     * @param  string  $permission_name name of Key
-     * @return boolean  true if user has key
+     * @param  string  $permission_name name of Permission
+     * @return boolean  true if user has permission
      */
     public static function can($permission_name)
     {
@@ -50,21 +50,17 @@ class PermissionsService
     }
 
     /**
-     * Get an array of all keys approved for user
-     * @return array approved user keys names keyed by id
+     * Get an array of all permissions approved for user
+     * @return array approved user permissions names keyed by id
      */
-    public static function passagePermission()
+    public static function passagePermissions()
     {
         if (self::$permissions === null) {
             if (!self::getUser()) {
                 return [];
             }
             $add = $subtract = [];
-            $overrides = Variance::where("user_id", self::getUser()->id)->get([
-                "user_id",
-                "permission_id",
-                "grant",
-            ]);
+            $overrides = Override::where("user_id", self::getUser()->id)->get(["user_id", "permission_id", "grant"]);
             foreach ($overrides as $override) {
                 if ($override->grant) {
                     $add[] = $override->permission_id;
@@ -73,7 +69,7 @@ class PermissionsService
                 }
             }
 
-            $query = Key::whereHas("groups.users", function ($q) {
+            $query = Permission::whereHas("groups.users", function ($q) {
                 $q->where("user_id", self::getUser()->id);
             });
             if ($subtract) {
@@ -88,47 +84,46 @@ class PermissionsService
     }
 
     /**
-     * Test if user has a approved key of a given name
-     * @param  string  $permission_name name of Key
-     * @return boolean  true if user has key
+     * Test if user has a approved permission of a given name
+     * @param  string  $permission_name name of Permission
+     * @return boolean  true if user has permission
      */
     public static function hasPermissionName(string $permission_name)
     {
-        $permissions = self::passagePermission();
+        $permissions = self::passagePermissions();
         return in_array($permission_name, $permissions);
     }
 
     /**
-     * Test if user has a approved key of a given key id
-     * @param  integer  $permission_id id of a Key
-     * @return boolean  true if user has corresponding key
+     * Test if user has a approved permission of a given permission id
+     * @param  integer  $permission_id id of a Permission
+     * @return boolean  true if user has corresponding permission
      */
     public static function hasPermission(int $permission_id)
     {
-        $permissions = self::passagePermission();
+        $permissions = self::passagePermissions();
         return array_key_exists($permission_id, $permissions);
     }
 
     /**
-     * Test if user has all keys in a given array approved
-     * @param  array  $check_permissions names of Keys to check
-     * @return boolean  true if user has corresponding keys
+     * Test if user has all permissions in a given array approved
+     * @param  array  $check_permissions names of Permissions to check
+     * @return boolean  true if user has corresponding permissions
      */
     public static function hasPermissions(array $check_permission_ids)
     {
-        $permissions = array_flip(self::passagePermission());
-        return count(array_intersect($check_permission_ids, $permissions)) ==
-            count($check_permission_ids);
+        $permissions = array_flip(self::passagePermissions());
+        return count(array_intersect($check_permission_ids, $permissions)) == count($check_permission_ids);
     }
 
     /**
-     * Test if user has all keys in a given array approved
+     * Test if user has all permissions in a given array approved
      * @param  array  $check_permissions names of permissions to check
-     * @return boolean  true if user has corresponding keys
+     * @return boolean  true if user has corresponding permissions
      */
     public static function hasPermissionNames(array $check_permissions)
     {
-        $permissions = self::passagePermission();
+        $permissions = self::passagePermissions();
         return count(array_intersect($check_permissions, $permissions)) == count($check_permissions);
     }
 
@@ -202,8 +197,7 @@ class PermissionsService
     public static function inGroups(array $check_group_codes)
     {
         $group_codes = array_flip(self::passageGroups());
-        return count(array_intersect($check_group_codes, $group_codes)) ==
-            count($check_group_codes);
+        return count(array_intersect($check_group_codes, $group_codes)) == count($check_group_codes);
     }
 
     /**
@@ -214,7 +208,6 @@ class PermissionsService
     public static function inGroupNames(array $check_groups)
     {
         $group_names = self::passageGroups();
-        return count(array_intersect($check_groups, $group_names)) ==
-            count($check_groups);
+        return count(array_intersect($check_groups, $group_names)) == count($check_groups);
     }
 }

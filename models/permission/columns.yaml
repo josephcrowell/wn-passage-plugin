@@ -4,14 +4,14 @@
 
 columns:
   name:
-    label: josephcrowell.passage::lang.key.name
+    label: josephcrowell.passage::lang.permission.name
     searchable: true
   description:
-    label: josephcrowell.passage::lang.key.description
+    label: josephcrowell.passage::lang.permission.description
     searchable: true
   updated_at:
-    label: josephcrowell.passage::lang.key.updated
+    label: josephcrowell.passage::lang.permission.updated
     searchable: false
   created_at:
-    label: josephcrowell.passage::lang.key.created
+    label: josephcrowell.passage::lang.permission.created
     searchable: false

@@ -5,7 +5,7 @@ namespace JosephCrowell\Passage\Behaviors;
 use Winter\User\Models\UserGroup;
 
 /**
- * Adds features for copying keys to another group
+ * Adds features for copying permissions to another group
  *
  * This behavior is implemented in the component like so:
  *
@@ -45,7 +45,7 @@ class PermissionCopy extends \Winter\Storm\Extension\ExtensionBase
         }
 
         return [
-            "#copyGkeys" =>
+            "#copyGpermissions" =>
                 '
 			<script type="text/javascript">
 			               ' .

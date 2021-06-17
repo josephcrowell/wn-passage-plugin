@@ -1,5 +1,6 @@
 <?php namespace JosephCrowell\Passage\Updates;
 
+use Winter\Storm\Database\Schema\Blueprint;
 use Winter\Storm\Database\Updates\Migration;
 use Schema;
 
@@ -11,18 +12,11 @@ class Version2Tables extends Migration
 
         Schema::table("josephcrowell_passage_groups_keys", function (Blueprint $table) {
             $table->renameColumn("key_id", "permission_id");
-
-            $table->renameIndex("key_id", "permission_id");
-
-            $table->dropPrimary("user_group_id");
-            $table->primary(["user_group_id", "permission_id"], "user_group_id");
         });
         Schema::rename("josephcrowell_passage_groups_keys", "josephcrowell_passage_groups_permissions");
 
         Schema::table("josephcrowell_passage_variances", function (Blueprint $table) {
             $table->renameColumn("key_id", "permission_id");
-
-            $table->renameIndex("key_id", "permission_id");
         });
         Schema::rename("josephcrowell_passage_variances", "josephcrowell_passage_overrides");
     }
@@ -33,18 +27,11 @@ class Version2Tables extends Migration
 
         Schema::table("josephcrowell_passage_groups_permissions", function (Blueprint $table) {
             $table->renameColumn("permission_id", "key_id");
-
-            $table->renameIndex("permission_id", "key_id");
-
-            $table->dropPrimary("user_group_id");
-            $table->primary(["user_group_id", "key_id"], "user_group_id");
         });
         Schema::rename("josephcrowell_passage_groups_permissions", "josephcrowell_passage_groups_keys");
 
         Schema::table("josephcrowell_passage_overrides", function (Blueprint $table) {
             $table->renameColumn("permission_id", "key_id");
-
-            $table->renameIndex("permission_id", "key_id");
         });
         Schema::rename("josephcrowell_passage_overrides", "josephcrowell_passage_variances");
     }

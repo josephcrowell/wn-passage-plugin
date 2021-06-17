@@ -1,6 +1,4 @@
-<?php
-
-namespace JosephCrowell\Passage;
+<?php namespace JosephCrowell\Passage;
 
 use App, Backend, BackendAuth, Event;
 use Illuminate\Foundation\AliasLoader;
@@ -13,7 +11,7 @@ use Winter\User\Models\UserGroup;
  */
 class Plugin extends PluginBase
 {
-    public static $keys = null;
+    public static $permissions = null;
     public static $groups = null;
 
     public $require = ["Winter.User"];
@@ -27,10 +25,9 @@ class Plugin extends PluginBase
     {
         return [
             "name" => "passage",
-            "description" =>
-                "Fast, Efficient permission system for controlling access to your website resources.",
+            "description" => "Fast, Efficient permission system for controlling access to your website resources.",
             "author" => "Joseph Crowell",
-            "icon" => "icon-key"
+            "icon" => "icon-key",
         ];
     }
 
@@ -52,8 +49,7 @@ class Plugin extends PluginBase
         });
 
         UserGroups::extend(function ($controller) {
-            $controller->implement[] =
-                "JosephCrowell.Passage.Behaviors.PermissionCopy";
+            $controller->implement[] = "JosephCrowell.Passage.Behaviors.PermissionCopy";
         });
 
         Event::listen("backend.menu.extendItems", function ($manager) {
@@ -66,8 +62,7 @@ class Plugin extends PluginBase
                     "url" => Backend::url("winter/user/usergroups"),
                 ],
                 "passage_permissions" => [
-                    "label" =>
-                        "josephcrowell.passage::lang.plugin.backend_menu",
+                    "label" => "josephcrowell.passage::lang.plugin.backend_menu",
                     "icon" => "icon-key",
                     "order" => 1001,
                     "code" => "passage",
@@ -76,8 +71,7 @@ class Plugin extends PluginBase
                     "url" => Backend::url("josephcrowell/passage/permissions"),
                 ],
                 "override" => [
-                    "label" =>
-                        "josephcrowell.passage::lang.plugin.backend_override",
+                    "label" => "josephcrowell.passage::lang.plugin.backend_override",
                     "icon" => "icon-key",
                     "order" => 1002,
                     "code" => "passage",
@@ -98,11 +92,7 @@ class Plugin extends PluginBase
                 return;
             }
             //die(BackendAuth::getUser()->first_name);
-            if (
-                !BackendAuth::getUser()->hasAccess(
-                    "josephcrowell.passage.usergroups"
-                )
-            ) {
+            if (!BackendAuth::getUser()->hasAccess("josephcrowell.passage.usergroups")) {
                 return;
             }
 
@@ -112,24 +102,19 @@ class Plugin extends PluginBase
                 [
                     "passage_permissions" => [
                         "tab" => "josephcrowell.passage::lang.plugin.field_tab",
-                        "label" =>
-                            "josephcrowell.passage::lang.plugin.field_label",
-                        "commentAbove" =>
-                            "josephcrowell.passage::lang.plugin.field_commentAbove",
+                        "label" => "josephcrowell.passage::lang.plugin.field_label",
+                        "commentAbove" => "josephcrowell.passage::lang.plugin.field_commentAbove",
                         "span" => "left",
                         "type" => "relation",
-                        "emptyOption" =>
-                            "josephcrowell.passage::lang.plugin.field_emptyOption",
+                        "emptyOption" => "josephcrowell.passage::lang.plugin.field_emptyOption",
                     ],
                     "copy_btn" => [
                         "tab" => "josephcrowell.passage::lang.plugin.field_tab",
                         "label" => "josephcrowell.passage::lang.copy",
-                        "commentAbove" =>
-                            "josephcrowell.passage::lang.copy_comment",
+                        "commentAbove" => "josephcrowell.passage::lang.copy_comment",
                         "span" => "right",
                         "type" => "partial",
-                        "path" =>
-                            '$/josephcrowell/passage/controllers/permissions/_copy.htm',
+                        "path" => '$/josephcrowell/passage/controllers/permissions/_copy.htm',
                     ],
                 ],
                 "primary"
@@ -137,10 +122,7 @@ class Plugin extends PluginBase
         });
 
         $alias = AliasLoader::getInstance();
-        $alias->alias(
-            "PassageService",
-            "\JosephCrowell\Passage\Classes\PermissionsService"
-        );
+        $alias->alias("PassageService", "\JosephCrowell\Passage\Classes\PermissionsService");
         App::register("\JosephCrowell\Passage\Services\PassageServiceProvider");
     }
 
@@ -159,8 +141,7 @@ class Plugin extends PluginBase
 
             "josephcrowell.passage.usergroups" => [
                 "tab" => "Winter.User::lang.plugin.tab",
-                "label" =>
-                    "josephcrowell.passage::lang.plugin.permission_label_ug",
+                "label" => "josephcrowell.passage::lang.plugin.permission_label_ug",
             ],
         ];
     }
@@ -169,14 +150,14 @@ class Plugin extends PluginBase
     {
         return [
             "functions" => [
-                "can" => function ($key) {
-                    return app("PassageService")::hasPermissionName($key);
+                "can" => function ($permission) {
+                    return app("PassageService")::hasPermissionName($permission);
                 },
-                "hasPermissionName" => function ($key) {
-                    return app("PassageService")::hasPermissionName($key);
+                "hasPermissionName" => function ($permission) {
+                    return app("PassageService")::hasPermissionName($permission);
                 },
-                "hasPermissionNames" => function ($keys) {
-                    return app("PassageService")::hasPermissionNames($keys);
+                "hasPermissionNames" => function ($permissions) {
+                    return app("PassageService")::hasPermissionNames($permissions);
                 },
                 "hasPermission" => function ($permission_id) {
                     return app("PassageService")::hasPermission($permission_id);
@@ -191,11 +172,11 @@ class Plugin extends PluginBase
                 "inGroupNames" => function ($groups) {
                     return app("PassageService")::inGroupNames($groups);
                 },
-                "inGroup" => function ($group_key) {
-                    return app("PassageService")::inGroup($group_key);
+                "inGroup" => function ($group_permission) {
+                    return app("PassageService")::inGroup($group_permission);
                 },
-                "inGroups" => function ($group_keys) {
-                    return app("PassageService")::inGroups($group_keys);
+                "inGroups" => function ($group_permissions) {
+                    return app("PassageService")::inGroups($group_permissions);
                 },
             ],
         ];

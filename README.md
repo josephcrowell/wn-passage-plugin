@@ -19,17 +19,17 @@
 
 This plugin adds a front end user group permission system to [WinterCMS](http://wintercms.com).
 
-Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
+Download the plugin to the plugins directory and logout and log in back into Winter backend. Go to the Passage Permissions page via the side menu in users in the backend and add your permissions.
 
-<h3>User Permision / Passage Key Entry</h3>
+<h3>User Permision / Passage Permission Entry</h3>
 
-In the backend under Users (Winter.Users) you will find a sidemenu item called **"Passage Keys".** This is where you enter your permission names and an optional description.
+In the backend under Users (Winter.Users) you will find a sidemenu item called **"Passage Permissions".** This is where you enter your permission names and an optional description.
 
-In the backend under Users you will find a button at the top called **"User Groups"**. Press button to see groups. When editing a group you will find check boxes at the bottom for each "Passage Key". This is where you assign permissions for each user group.
+In the backend under Users you will find a button at the top called **"User Groups"**. Press button to see groups. When editing a group you will find check boxes at the bottom for each "Passage Permission". This is where you assign permissions for each user group.
 
-<h3>User Variances</h3>
+<h3>User Overrides</h3>
 
-In the backend under Users (Winter.Users) you will find a sidemenu item called **"User Variances".**
+In the backend under Users (Winter.Users) you will find a sidemenu item called **"User Overrides".**
 
 User overrides allow you to add permissions to individual users. You can also remove permission from users by adding a override and unchecking the **Grant** checkbox.
 
@@ -39,11 +39,11 @@ On a page you may restrict access to a portion of view by using the following tw
 
     {% if can('calendar_meetings') %}
 
-    <p>This will show only if the user belongs to a Winter.User Usergroup that includes the permision named "calendar_meetings".</p>
+    <p>This will show only if the user belongs to a Winter.User Usergroup that includes the permission named "calendar_meetings".</p>
 
     {% else %}
 
-    <p>This will show if the user DOES NOT belong to a Winter.User Usergroup that include the permision named "calendar_meetings".</p>
+    <p>This will show if the user DOES NOT belong to a Winter.User Usergroup that include the permission named "calendar_meetings".</p>
 
     {% endif %}
 
@@ -78,26 +78,26 @@ On a page you may restrict access to a portion of view by using the following tw
 
 <h2>Available Twig Functions</h2>
 
--   can('KeyName') - Check a passage key name
--   hasPermissionName('KeyName') - Check a passage key name
--   hasPermissionNames(['KeyName1','KeyName2','KeyName3']) - Check an array of passage key names
--   hasPermission(KeyId) (where KeyId is an integer) - Check a passage key id
--   hasPermissions([KeyId1,KeyId2,KeyId3]) - Check an array of passage key ids
+- can('PermissionName') - Check a passage permission name
+- hasPermissionName('PermissionName') - Check a passage permission name
+- hasPermissionNames(['PermissionName1','PermissionName2','PermissionName3']) - Check an array of passage permission names
+- hasPermission(PermissionId) (where PermissionId is an integer) - Check a passage permission id
+- hasPermissions([PermissionId1,PermissionId2,PermissionId3]) - Check an array of passage permission ids
 
--   inGroupName('GroupName') - Check a passage group name
--   inGroupNames(['Group Name','Group Name 2','Group Name 3']) - Check an array of passage group names
--   inGroup('GroupCode') - Check a passage group code
--   inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
+- inGroupName('GroupName') - Check a passage group name
+- inGroupNames(['Group Name','Group Name 2','Group Name 3']) - Check an array of passage group names
+- inGroup('GroupCode') - Check a passage group code
+- inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
 
 <h3>User Permisions in Your Own Plugins</h3>
 
     // Passage Service Methods can be accessed in one of two ways:
-    $permission_keys_by_name = PassageService::passagePermission(); // by Alias
+    $permissions_by_name = PassageService::passagePermissions(); // by Alias
     //OR
-    $permission_keys_by_name = app('PassageService')::passagePermission(); // by App Service
+    $permissions_by_name = app('PassageService')::passagePermissions(); // by App Service
 
-    // Get all permision keys for the user in an array
-    $permission_keys_by_name = app('PassageService')::passagePermission();
+    // Get all permissions for the user in an array
+    $permissions_by_name = PassageService::passagePermissions();
 
     /**
     * OR
@@ -106,20 +106,20 @@ On a page you may restrict access to a portion of view by using the following tw
     **/
 
     // check for permission directly using hasPermissionName( $permission_name )
-    $permissionGranted = app('PassageService')::hasPermissionName('view_magic_dragon');
+    $permissionGranted = PassageService::hasPermissionName('view_magic_dragon');
     if($permissionGranted) {
-    	// Do stuff
+     // Do stuff
     }
 
     /**
     * OR
     *
-    * 	Lets say you have a model that uses a permission field containg the id of a
-    *   permission key and want to see if model permission matches.
+    *  Lets say you have a model that uses a permission field containg the id of a
+    *   permission permission and want to see if model permission matches.
     *
-    * 	Example:
-    * 	$model->perm_id = 5 which came from a dropdown that contained keys
-    * 	from PassageService::passagePermission();
+    *  Example:
+    *  $model->perm_id = 5 which came from a dropdown that contained permissions
+    *  from PassageService::passagePermissions();
     **/
 
     $model = Model::first();
@@ -133,7 +133,7 @@ On a page you may restrict access to a portion of view by using the following tw
     /**
     * OR
     *
-    * 	Get Array of Groups
+    *  Get Array of Groups
     **/
 
     // You can get array of the users groups keyed by the code of the group
@@ -142,7 +142,7 @@ On a page you may restrict access to a portion of view by using the following tw
     /**
     * OR
     *
-    * 	Check group membership by group code
+    *  Check group membership by group code
     **/
 
     // use hasGroup($group_code) to check membership
@@ -151,7 +151,7 @@ On a page you may restrict access to a portion of view by using the following tw
     /**
     * OR
     *
-    * 	Check group membership by group Name
+    *  Check group membership by group Name
     *   Note: Group names are not guaranteed to be unique.
     *   DO NOT CHECK BY GROUP NAME if security is an issue.
     **/
@@ -161,16 +161,16 @@ On a page you may restrict access to a portion of view by using the following tw
 
 <h2>Available Passage Service Methods</h2>
 
--   passagePermission() - Get an array of all approved passage keys for the user
--   can($permission_name) - (alias of hasPermissionName())
--   hasPermissionName($permission_name) - Check a passage key name
--   hasPermission(integer $permission_id) - Check a passage key id
--   hasPermissions(array $check_permission_ids) - Check an array of passage key ids
--   hasPermissionNames(array $check_permissions) - Check an array of passage key names
--   passageGroups() - Get an array of all approved passage groups for the user
--   inGroupName($group_name) - Check a passage group name
--   hasGroupName($group_name) - (alias of inGroupName())
--   inGroup($group_code) - Check a passage group code
--   hasGroup($group_code) - (alias of inGroup())
--   inGroups(array $check_group_codes) - Check an array of passage group ids
--   inGroupNames(array $check_groups) - Check an array of passage group names
+- passagePermissions() - Get an array of all approved passage permissions for the user
+- can($permission_name) - (alias of hasPermissionName())
+- hasPermissionName($permission_name) - Check a passage permission name
+- hasPermission(integer $permission_id) - Check a passage permission id
+- hasPermissions(array $check_permission_ids) - Check an array of passage permission ids
+- hasPermissionNames(array $check_permissions) - Check an array of passage permission names
+- passageGroups() - Get an array of all approved passage groups for the user
+- inGroupName($group_name) - Check a passage group name
+- hasGroupName($group_name) - (alias of inGroupName())
+- inGroup($group_code) - Check a passage group code
+- hasGroup($group_code) - (alias of inGroup())
+- inGroups(array $check_group_codes) - Check an array of passage group ids
+- inGroupNames(array $check_groups) - Check an array of passage group names

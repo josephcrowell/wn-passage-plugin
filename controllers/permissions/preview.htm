@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-  <li><a href="<?= Backend::url('josephcrowell/passage/permissions') ?>">Keys</a></li>
-  <li><?= e($this->pageTitle) ?></li>
+    <li><a href="<?= Backend::url('josephcrowell/passage/permissions') ?>">Permissions</a></li>
+    <li><?= e($this->pageTitle) ?></li>
 </ul>
 <?php Block::endPut() ?>
 
@@ -13,11 +13,9 @@
 
 <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <p>
-  <a
-    href="<?= Backend::url('josephcrowell/passage/permissions') ?>"
-    class="btn btn-default"
-    ><?= e(trans('josephcrowell.passage::lang.keys_comp.return')) ?></a
-  >
+    <a href="<?= Backend::url('josephcrowell/passage/permissions') ?>" class="btn btn-default"
+        ><?= e(trans('josephcrowell.passage::lang.permissions_comp.return')) ?></a
+    >
 </p>
 
 <?php endif ?>

@@ -41,12 +41,7 @@ class Override extends Model
             "key" => "permission_id",
             "otherkey" => "id",
         ],
-        "user" => [
-            "Winter\User\Models\User",
-            "table" => "users",
-            "key" => "user_id",
-            "otherkey" => "id",
-        ],
+        "user" => ["Winter\User\Models\User", "table" => "users", "key" => "user_id", "otherkey" => "id"],
     ];
 
     public function __construct(array $attributes = [])
@@ -71,9 +66,7 @@ class Override extends Model
                 ->count() > 0;
         if ($invalid) {
             throw new \ValidationException([
-                "unique_attribute" => Lang::get(
-                    "josephcrowell.passage::lang.override.error_duplicate"
-                ),
+                "unique_attribute" => Lang::get("josephcrowell.passage::lang.override.error_duplicate"),
             ]);
         }
     }
@@ -85,14 +78,13 @@ class Override extends Model
             ->orderBy("name")
             ->get(["surname", "name", "email", "id"]);
         foreach ($users as $user) {
-            $options[$user->id] =
-                $user->surname . ", " . $user->name . " - " . $user->email;
+            $options[$user->id] = $user->surname . ", " . $user->name . " - " . $user->email;
         }
         return $options;
     }
 
-    public function getKeyIdOptions()
+    public function getPermissionIdOptions()
     {
-        return Key::lists("name", "id");
+        return Permission::lists("name", "id");
     }
 }
