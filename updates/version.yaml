@@ -1,29 +1,29 @@
 1.0.1:
-    - Initialize plugin.
-    - create_tables.php
-1.0.2: "Added replacement twig tag for hasRole() called inGroup(). This checks to see if user belongs to Winter\User\Models\UserGroup."
+  - Initialize plugin.
+  - create_tables.php
+1.0.2: Added replacement twig tag for hasRole() called inGroup(). This checks to see if user belongs to Winter\User\Models\UserGroup.
 1.0.3: Fixed error caused by inGroup($group) on non-logged in user.
 1.0.4: Added messageURL() to enable Author Notices
 1.0.5:
-    - "!!! This is an important update that contains breaking changes. Changed inGroup to use code instead of name and added methods."
+  - "!!! This is an important update that contains breaking changes. Changed inGroup to use code instead of name and added methods."
 1.0.6: Fixes error at plugin.php line 152
 1.0.7: Fixes dumb mistake at plugin.php line 150 and caches groups better
 1.0.8: Added model UsersGroups (from Rainlab) to make easier to get users of a permission key
 1.0.9: Prevents unactivated users from having any permissions
 1.0.10: Fixed nullpointer when no user is logged in ( Thanks jhendess )
 1.0.11:
-    - "!!! This update contains breaking changes that may affect other plugins. Permission methods for PHP code are now accessed by App Service like app('PassageService')::passageKeys() or by alias like PassageService::passageKeys()."
+  - "!!! This update contains breaking changes that may affect other plugins. Permission methods for PHP code are now accessed by App Service like app('PassageService')::passageKeys() or by alias like PassageService::passageKeys()."
 1.1.0:
-    - Add Variances for individual users
-    - create_variances_table.php
+  - Add Variances for individual users
+  - create_variances_table.php
 1.1.1: Keys are now presented in sort order
 1.1.2: Variances are now searchable in backend ( Thanks ndcisiv@github.com )
 1.1.3: People and Groups now listed in Passage Key updated form
 1.1.4: Added copy keys button to usergroup form to make it easy to copy keys between groups.
 1.2.0:
-    - Convert to Winter CMS and change owner to Joseph Crowell
-    - rename_tables.php
+  - Convert to Winter CMS and change owner to Joseph Crowell
+  - rename_tables.php
 2.0.0:
-    - Undo UserPlus merge and refactor functions. Existing user fields will not be removed to prevent data loss as they could be added to child plugins.
-    - "!!! This update contains breaking changes to existing functions, databases and twig calls. Many functions have been refactored. All key functions are now permission functions and all variance functions are now override functions."
-    - version2_tables.php
+  - Undo UserPlus merge and refactor functions. Existing user fields will not be removed to prevent data loss as they could be added to child plugins.
+  - "!!! This update contains breaking changes to existing functions, databases and twig calls. Many functions have been refactored. All key functions are now permission functions and all variance functions are now override functions."
+  - version2_tables.php
