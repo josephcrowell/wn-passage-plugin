@@ -15,7 +15,7 @@
   </a>
 </p>
 
-( Installation code : **josephcrowell.passage** ) Requires ( **Winter.User** )
+( Installation code : **josephcrowell.wn-passage-plugin** ) Requires ( **Winter.User** )
 
 This plugin adds a front end user group permission system to [WinterCMS](http://wintercms.com).
 
