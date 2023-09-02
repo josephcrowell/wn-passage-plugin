@@ -20,7 +20,7 @@ class UsersGroups extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = ["*"];
 
     public $belongsTo = [
         "user" => [
