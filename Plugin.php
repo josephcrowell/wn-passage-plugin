@@ -39,6 +39,8 @@ class Plugin extends PluginBase
     public function boot()
     {
         UserGroup::extend(function ($model) {
+            $model->addFillable(["core_group"]);
+
             $model->belongsToMany["passage_permissions"] = [
                 "JosephCrowell\Passage\Models\Permission",
                 "table" => "josephcrowell_passage_groups_permissions",
