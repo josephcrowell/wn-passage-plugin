@@ -27,3 +27,5 @@
   - Undo UserPlus merge and refactor functions. Existing user fields will not be removed to prevent data loss as they could be added to child plugins.
   - "!!! This update contains breaking changes to existing functions, databases and twig calls. Many functions have been refactored. All key functions are now permission functions and all variance functions are now override functions."
   - version2_tables.php
+2.0.1:
+  - add needed fillable properties
