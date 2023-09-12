@@ -20,7 +20,14 @@ class UsersGroups extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = ["*"];
+
+    /**
+     * This model doesn't have timestamps.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     public $belongsTo = [
         "user" => [
