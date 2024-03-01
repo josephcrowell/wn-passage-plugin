@@ -29,3 +29,5 @@
   - version2_tables.php
 2.0.1:
   - add needed fillable properties
+2.0.2:
+  - syntax and documentation fixes
