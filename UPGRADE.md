@@ -1,12 +1,10 @@
 # Upgrade guide
 
--   [Upgrading to 2.0.0 from 1.2.0](#upgrade-2.0.0)
-
--   [Upgrading to 1.0.11 from 1.0.10](#upgrade-1.0.11)
-
--   [Upgrading to 1.0.5 from 1.0.4](#upgrade-1.0.5)
-
--   [Upgrading from Shahiem Seymor's Frontend User Roles Manager](#roles)
+- [Upgrade guide](#upgrade-guide)
+  - [Upgrading To 2.0.0](#upgrading-to-200)
+  - [Upgrading To 1.0.11](#upgrading-to-1011)
+  - [Upgrading To 1.0.5](#upgrading-to-105)
+  - [Upgrading from Shahiem Seymor's Frontend User Roles Manager](#upgrading-from-shahiem-seymors-frontend-user-roles-manager)
 
 <a name="upgrade-2.0.0"></a>
 

@@ -3,9 +3,10 @@
 This document outlines security procedures and general policies for the `standard`
 project.
 
--   [Reporting a Bug](#reporting-a-bug)
--   [Disclosure Policy](#disclosure-policy)
--   [Comments on this Policy](#comments-on-this-policy)
+- [Security Policies and Procedures](#security-policies-and-procedures)
+  - [Reporting a Bug](#reporting-a-bug)
+  - [Disclosure Policy](#disclosure-policy)
+  - [Comments on this Policy](#comments-on-this-policy)
 
 ## Reporting a Bug
 
@@ -14,7 +15,7 @@ Thank you for improving the security of `wn-passage-plugin`. We appreciate your 
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 
-Report security bugs by emailing the lead maintainer at joseph.w.crowell@gmail.com.
+Report security bugs by emailing the lead maintainer at <joseph.w.crowell@gmail.com>.
 
 The lead maintainer will acknowledge your email within 48 hours, and will send a
 more detailed response within 48 hours indicating the next steps in handling
@@ -31,9 +32,9 @@ When the security team receives a security bug report, they will assign it to a
 primary handler. This person will coordinate the fix and release process,
 involving the following steps:
 
--   Confirm the problem and determine the affected versions.
--   Audit code to find any potential similar problems.
--   Prepare fixes for all releases still under maintenance. These fixes will be
+- Confirm the problem and determine the affected versions.
+- Audit code to find any potential similar problems.
+- Prepare fixes for all releases still under maintenance. These fixes will be
     released as fast as possible to composer and the Winter CMS marketplace.
 
 ## Comments on this Policy
