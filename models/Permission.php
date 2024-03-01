@@ -1,4 +1,5 @@
-<?php namespace JosephCrowell\Passage\Models;
+<?php
+namespace JosephCrowell\Passage\Models;
 
 use Model;
 
@@ -26,10 +27,10 @@ class Permission extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        "groups" => [
+        "groups"      => [
             "Winter\User\Models\UserGroup",
-            "table" => "josephcrowell_passage_groups_permissions",
-            "key" => "permission_id",
+            "table"    => "josephcrowell_passage_groups_permissions",
+            "key"      => "permission_id",
             "otherkey" => "user_group_id",
         ],
         "users_count" => [

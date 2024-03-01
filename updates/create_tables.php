@@ -1,4 +1,5 @@
-<?php namespace JosephCrowell\Passage\Updates;
+<?php
+namespace JosephCrowell\Passage\Updates;
 
 use Winter\Storm\Database\Updates\Migration;
 use Schema;
@@ -7,7 +8,8 @@ class CreateTables extends Migration
 {
     public function up()
     {
-        Schema::create("kurtjensen_passage_keys", function ($table) {
+        Schema::create("kurtjensen_passage_keys", function ($table)
+        {
             $table->engine = "InnoDB";
             $table->increments("id")->unsigned();
             $table->string("name");
@@ -15,7 +17,8 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create("kurtjensen_passage_groups_keys", function ($table) {
+        Schema::create("kurtjensen_passage_groups_keys", function ($table)
+        {
             $table->engine = "InnoDB";
             $table->integer("user_group_id")->unsigned();
             $table->integer("key_id")->unsigned();

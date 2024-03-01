@@ -1,5 +1,4 @@
 <?php
-
 namespace JosephCrowell\Passage\Classes;
 
 use Auth;
@@ -30,10 +29,12 @@ class PermissionsService
      */
     public static function getUser()
     {
-        if (!($user = Auth::getUser())) {
+        if (!($user = Auth::getUser()))
+        {
             return false;
         }
-        if (!$user->is_activated) {
+        if (!$user->is_activated)
+        {
             return false;
         }
         return $user;
@@ -55,27 +56,36 @@ class PermissionsService
      */
     public static function passagePermissions()
     {
-        if (self::$permissions === null) {
-            if (!self::getUser()) {
+        if (self::$permissions === null)
+        {
+            if (!self::getUser())
+            {
                 return [];
             }
-            $add = $subtract = [];
+            $add       = $subtract = [];
             $overrides = Override::where("user_id", self::getUser()->id)->get(["user_id", "permission_id", "grant"]);
-            foreach ($overrides as $override) {
-                if ($override->grant) {
+            foreach ($overrides as $override)
+            {
+                if ($override->grant)
+                {
                     $add[] = $override->permission_id;
-                } else {
+                }
+                else
+                {
                     $subtract[] = $override->permission_id;
                 }
             }
 
-            $query = Permission::whereHas("groups.users", function ($q) {
+            $query = Permission::whereHas("groups.users", function ($q)
+            {
                 $q->where("user_id", self::getUser()->id);
             });
-            if ($subtract) {
+            if ($subtract)
+            {
                 $query->whereNotIn("id", $subtract);
             }
-            if ($add) {
+            if ($add)
+            {
                 $query->orWhereIn("id", $add);
             }
             self::$permissions = $query->lists("name", "id");
@@ -137,8 +147,10 @@ class PermissionsService
      */
     public static function passageGroups()
     {
-        if (self::$groups === null) {
-            if (!($user = self::getUser())) {
+        if (self::$groups === null)
+        {
+            if (!($user = self::getUser()))
+            {
                 return self::$groups = [];
             }
             self::$groups = $user->groups->lists("name", "code");
@@ -153,7 +165,8 @@ class PermissionsService
      */
     public static function inGroupName(string $group_name)
     {
-        if (!($user = self::getUser())) {
+        if (!($user = self::getUser()))
+        {
             return false;
         }
         return in_array($group_name, self::passageGroups());

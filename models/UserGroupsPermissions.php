@@ -1,4 +1,5 @@
-<?php namespace JosephCrowell\Passage\Models;
+<?php
+namespace JosephCrowell\Passage\Models;
 
 use Model;
 
@@ -28,14 +29,14 @@ class UserGroupsPermissions extends Model
     public $hasOne = [
         "permission" => [
             "JosephCrowell\Passage\Models\Permission",
-            "table" => "josephcrowell_passage_permissions",
-            "key" => "permission_id",
+            "table"    => "josephcrowell_passage_permissions",
+            "key"      => "permission_id",
             "otherKey" => "id",
         ],
-        "group" => [
+        "group"      => [
             "Winter\User\Models\UserGroup",
-            "table" => "user_groups",
-            "key" => "user_group_id",
+            "table"    => "user_groups",
+            "key"      => "user_group_id",
             "otherKey" => "id",
         ],
     ];

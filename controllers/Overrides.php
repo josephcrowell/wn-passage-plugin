@@ -1,9 +1,8 @@
 <?php
-
 namespace JosephCrowell\Passage\Controllers;
 
-use BackendMenu;
 use Backend\Classes\Controller;
+use Backend\Facades\BackendMenu;
 
 /**
  * Overrides Back-end Controller

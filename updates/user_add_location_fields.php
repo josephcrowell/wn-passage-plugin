@@ -1,4 +1,5 @@
-<?php namespace JosephCrowell\Passage\Updates;
+<?php
+namespace JosephCrowell\Passage\Updates;
 
 use Schema;
 use Winter\Storm\Database\Updates\Migration;
@@ -7,11 +8,13 @@ class UserAddLocationFields extends Migration
 {
     public function up()
     {
-        if (Schema::hasColumns("users", ["state_id", "country_id"])) {
+        if (Schema::hasColumns("users", ["state_id", "country_id"]))
+        {
             return;
         }
 
-        Schema::table("users", function ($table) {
+        Schema::table("users", function ($table)
+        {
             $table
                 ->integer("state_id")
                 ->unsigned()
@@ -27,8 +30,10 @@ class UserAddLocationFields extends Migration
 
     public function down()
     {
-        if (Schema::hasTable("users")) {
-            Schema::table("users", function ($table) {
+        if (Schema::hasTable("users"))
+        {
+            Schema::table("users", function ($table)
+            {
                 $table->dropColumn(["state_id", "country_id"]);
             });
         }
