@@ -9,9 +9,6 @@
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[php]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -19,5 +16,5 @@
     "prettier.jsxSingleQuote": true,
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
-    "prettier.jsxBracketSameLine": true
+    "prettier.bracketSameLine": true
 }
