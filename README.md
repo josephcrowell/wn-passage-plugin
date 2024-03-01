@@ -92,7 +92,9 @@ On a page you may restrict access to a portion of view by using the following tw
 <h3>User Permisions in Your Own Plugins</h3>
 
     // Passage Service Methods can be accessed in one of two ways:
+    use JosephCrowell\Passage\Classes\PermissionsService as PassageService;
     $permissions_by_name = PassageService::passagePermissions(); // by Alias
+
     //OR
     $permissions_by_name = app('PassageService')::passagePermissions(); // by App Service
 
