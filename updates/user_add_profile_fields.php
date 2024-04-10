@@ -16,13 +16,11 @@ class UserAddProfileFields extends Migration
                 "city",
                 "zip",
             ])
-        )
-        {
+        ) {
             return;
         }
 
-        Schema::table("users", function ($table)
-        {
+        Schema::table("users", function ($table) {
             $table->string("phone", 100)->nullable();
             $table->string("company", 100)->nullable();
             $table->string("street_addr")->nullable();
@@ -33,10 +31,8 @@ class UserAddProfileFields extends Migration
 
     public function down()
     {
-        if (Schema::hasTable("users"))
-        {
-            Schema::table("users", function ($table)
-            {
+        if (Schema::hasTable("users")) {
+            Schema::table("users", function ($table) {
                 $table->dropColumn([
                     "phone",
                     "company",

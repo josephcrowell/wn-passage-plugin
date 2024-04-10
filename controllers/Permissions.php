@@ -31,7 +31,7 @@ class Permissions extends Controller
     public function index()
     {
         parent::index();
-        $manager       = PluginManager::instance();
+        $manager = PluginManager::instance();
         $this->addBtns = $manager->exists("shahiemseymor.roles")
             ? '
         <div class="layout-row">
@@ -76,14 +76,12 @@ class Permissions extends Controller
     public function onConvertFromPerms()
     {
         $manager = PluginManager::instance();
-        if ($manager->exists("shahiemseymor.roles"))
-        {
+        if ($manager->exists("shahiemseymor.roles")) {
             $perms = DB::table("shahiemseymor_permissions")->get();
-            foreach ($perms as $perm)
-            {
+            foreach ($perms as $perm) {
                 $newRows[] = [
-                    "id"          => $perm->id,
-                    "name"        => $perm->name,
+                    "id" => $perm->id,
+                    "name" => $perm->name,
                     "description" => $perm->display_name,
                 ];
             }
@@ -94,15 +92,13 @@ class Permissions extends Controller
     public function onConvertFromRoles()
     {
         $manager = PluginManager::instance();
-        if ($manager->exists("shahiemseymor.roles"))
-        {
+        if ($manager->exists("shahiemseymor.roles")) {
             $roles = DB::table("shahiemseymor_roles")->get();
-            foreach ($roles as $role)
-            {
+            foreach ($roles as $role) {
                 $newRows[] = [
-                    "id"          => $role->id,
-                    "name"        => $role->name,
-                    "code"        => str_replace(" ", "_", strtolower($role->name)),
+                    "id" => $role->id,
+                    "name" => $role->name,
+                    "code" => str_replace(" ", "_", strtolower($role->name)),
                     "description" => $role->name,
                 ];
             }
@@ -114,11 +110,9 @@ class Permissions extends Controller
     public function onConvertFromRolesPerms()
     {
         $manager = PluginManager::instance();
-        if ($manager->exists("shahiemseymor.roles"))
-        {
+        if ($manager->exists("shahiemseymor.roles")) {
             $permRoles = DB::table("shahiemseymor_permission_role")->get();
-            foreach ($permRoles as $pr)
-            {
+            foreach ($permRoles as $pr) {
                 $newRows[] = [
                     "permission_id" => $pr->permission_id,
                     "user_group_id" => $pr->role_id,
@@ -131,8 +125,7 @@ class Permissions extends Controller
 
     public static function userList($permission)
     {
-        $query = User::whereHas("groups.passage_permissions", function ($q) use ($permission)
-        {
+        $query = User::whereHas("groups.passage_permissions", function ($q) use ($permission) {
             $q->where("permission_id", $permission);
         });
 

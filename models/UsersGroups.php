@@ -31,16 +31,16 @@ class UsersGroups extends Model
     public $timestamps = false;
 
     public $belongsTo = [
-        "user"  => [
+        "user" => [
             "Winter\User\Models\User",
-            "key"      => "user_id",
+            "key" => "user_id",
             "otherKey" => "id",
         ],
 
         "group" => [
             "Winter\User\Models\UserGroup",
-            "table"    => "user_groups",
-            "key"      => "user_group_id",
+            "table" => "user_groups",
+            "key" => "user_group_id",
             "otherkey" => "id",
         ],
     ];
@@ -48,8 +48,8 @@ class UsersGroups extends Model
     public $belongsToMany = [
         "passage_permissions" => [
             "JosephCrowell\Passage\Models\Permission",
-            "table"    => "josephcrowell_passage_groups_permissions",
-            "key"      => "user_group_id",
+            "table" => "josephcrowell_passage_groups_permissions",
+            "key" => "user_group_id",
             "otherKey" => "permission_id",
         ],
     ];

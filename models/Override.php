@@ -19,7 +19,7 @@ class Override extends Model
 
     public $rules = [
         "permission_id" => "required",
-        "user_id"       => "required",
+        "user_id" => "required",
     ];
 
     /**
@@ -38,11 +38,11 @@ class Override extends Model
     public $belongsTo = [
         "permission" => [
             "JosephCrowell\Passage\Models\Permission",
-            "table"    => "josephcrowell_passage_permissions",
-            "key"      => "permission_id",
+            "table" => "josephcrowell_passage_permissions",
+            "key" => "permission_id",
             "otherkey" => "id",
         ],
-        "user"       => ["Winter\User\Models\User", "table" => "users", "key" => "user_id", "otherkey" => "id"],
+        "user" => ["Winter\User\Models\User", "table" => "users", "key" => "user_id", "otherkey" => "id"],
     ];
 
     public function __construct(array $attributes = [])
@@ -65,8 +65,7 @@ class Override extends Model
                 ->where("permission_id", $this->permission_id)
                 ->where("user_id", $this->user_id)
                 ->count() > 0;
-        if ($invalid)
-        {
+        if ($invalid) {
             throw new ValidationException([
                 "unique_attribute" => Lang::get("josephcrowell.passage::lang.override.error_duplicate"),
             ]);
@@ -76,11 +75,10 @@ class Override extends Model
     public function getUserIdOptions()
     {
         $options[0] = Lang::get("josephcrowell.passage::lang.choose_one");
-        $users      = User::orderBy("surname")
+        $users = User::orderBy("surname")
             ->orderBy("name")
             ->get(["surname", "name", "email", "id"]);
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
             $options[$user->id] = $user->surname . ", " . $user->name . " - " . $user->email;
         }
         return $options;

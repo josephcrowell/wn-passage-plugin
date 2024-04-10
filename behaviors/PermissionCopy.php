@@ -33,12 +33,10 @@ class PermissionCopy extends \Winter\Storm\Extension\ExtensionBase
     public function onCopy()
     {
         $group = UserGroup::find(post("CGid"));
-        if (!$group->passage_permissions->count() > 0)
-        {
+        if (! $group->passage_permissions->count() > 0) {
             return [];
         }
-        foreach ($group->passage_permissions as $permission)
-        {
+        foreach ($group->passage_permissions as $permission) {
             $funct_lines[] =
                 '$(\'input:checkbox[name="UserGroup[passage_permissions][]"][value="' .
                 $permission->id .

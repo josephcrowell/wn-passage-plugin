@@ -9,8 +9,7 @@ class CreateVariancesTable extends Migration
 {
     public function up()
     {
-        Schema::create("kurtjensen_passage_variances", function (Blueprint $table)
-        {
+        Schema::create("kurtjensen_passage_variances", function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments("id")->unsigned();
             $table->integer("user_id")->unsigned();
