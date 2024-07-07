@@ -10,17 +10,17 @@ use Backend\Facades\BackendMenu;
 class Overrides extends Controller
 {
     public $implement = [
-        "Backend.Behaviors.FormController",
-        "Backend.Behaviors.ListController",
+        'Backend.Behaviors.FormController',
+        'Backend.Behaviors.ListController',
     ];
 
-    public $formConfig = "config_form.yaml";
-    public $listConfig = "config_list.yaml";
+    public $formConfig = 'config_form.yaml';
+    public $listConfig = 'config_list.yaml';
 
     public function __construct()
     {
         parent::__construct();
 
-        BackendMenu::setContext("Winter.User", "user", "overrides");
+        BackendMenu::setContext('Winter.User', 'user', 'overrides');
     }
 }

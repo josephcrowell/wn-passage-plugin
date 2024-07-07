@@ -11,12 +11,12 @@ class Permission extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = "josephcrowell_passage_permissions";
+    public $table = 'josephcrowell_passage_permissions';
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ["*"];
+    protected $guarded = ['*'];
 
     /**
      * @var array Fillable fields
@@ -27,16 +27,16 @@ class Permission extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        "groups" => [
-            "Winter\User\Models\UserGroup",
-            "table" => "josephcrowell_passage_groups_permissions",
-            "key" => "permission_id",
-            "otherkey" => "user_group_id",
+        'groups' => [
+            'Winter\User\Models\UserGroup',
+            'table' => 'josephcrowell_passage_groups_permissions',
+            'key' => 'permission_id',
+            'otherkey' => 'user_group_id',
         ],
-        "users_count" => [
-            "Winter\User\Models\UserGroup",
-            "table" => "josephcrowell_passage_groups_permissions",
-            "count" => true,
+        'users_count' => [
+            'Winter\User\Models\UserGroup',
+            'table' => 'josephcrowell_passage_groups_permissions',
+            'count' => true,
         ],
     ];
 }

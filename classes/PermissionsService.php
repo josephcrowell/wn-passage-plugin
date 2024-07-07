@@ -59,7 +59,7 @@ class PermissionsService
                 return [];
             }
             $add = $subtract = [];
-            $overrides = Override::where("user_id", self::getUser()->id)->get(["user_id", "permission_id", "grant"]);
+            $overrides = Override::where('user_id', self::getUser()->id)->get(['user_id', 'permission_id', 'grant']);
             foreach ($overrides as $override) {
                 if ($override->grant) {
                     $add[] = $override->permission_id;
@@ -68,16 +68,16 @@ class PermissionsService
                 }
             }
 
-            $query = Permission::whereHas("groups.users", function ($q) {
-                $q->where("user_id", self::getUser()->id);
+            $query = Permission::whereHas('groups.users', function ($q) {
+                $q->where('user_id', self::getUser()->id);
             });
             if ($subtract) {
-                $query->whereNotIn("id", $subtract);
+                $query->whereNotIn('id', $subtract);
             }
             if ($add) {
-                $query->orWhereIn("id", $add);
+                $query->orWhereIn('id', $add);
             }
-            self::$permissions = $query->lists("name", "id");
+            self::$permissions = $query->lists('name', 'id');
         }
         return self::$permissions;
     }
@@ -140,7 +140,7 @@ class PermissionsService
             if (! ($user = self::getUser())) {
                 return self::$groups = [];
             }
-            self::$groups = $user->groups->lists("name", "code");
+            self::$groups = $user->groups->lists('name', 'code');
         }
         return self::$groups;
     }

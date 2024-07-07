@@ -11,7 +11,7 @@ class UsersGroups extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = "users_groups";
+    public $table = 'users_groups';
 
     /**
      * @var array Guarded fields
@@ -21,7 +21,7 @@ class UsersGroups extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ["*"];
+    protected $fillable = ['*'];
 
     /**
      * This model doesn't have timestamps.
@@ -31,26 +31,26 @@ class UsersGroups extends Model
     public $timestamps = false;
 
     public $belongsTo = [
-        "user" => [
-            "Winter\User\Models\User",
-            "key" => "user_id",
-            "otherKey" => "id",
+        'user' => [
+            'Winter\User\Models\User',
+            'key' => 'user_id',
+            'otherKey' => 'id',
         ],
 
-        "group" => [
-            "Winter\User\Models\UserGroup",
-            "table" => "user_groups",
-            "key" => "user_group_id",
-            "otherkey" => "id",
+        'group' => [
+            'Winter\User\Models\UserGroup',
+            'table' => 'user_groups',
+            'key' => 'user_group_id',
+            'otherkey' => 'id',
         ],
     ];
 
     public $belongsToMany = [
-        "passage_permissions" => [
-            "JosephCrowell\Passage\Models\Permission",
-            "table" => "josephcrowell_passage_groups_permissions",
-            "key" => "user_group_id",
-            "otherKey" => "permission_id",
+        'passage_permissions' => [
+            'JosephCrowell\Passage\Models\Permission',
+            'table' => 'josephcrowell_passage_groups_permissions',
+            'key' => 'user_group_id',
+            'otherKey' => 'permission_id',
         ],
     ];
 }

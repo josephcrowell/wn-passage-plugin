@@ -27,28 +27,28 @@ class PermissionCopy extends \Winter\Storm\Extension\ExtensionBase
 
     public function getAllGroups()
     {
-        $this->controller->allGroups = UserGroup::orderBy("name")->get();
+        $this->controller->allGroups = UserGroup::orderBy('name')->get();
     }
 
     public function onCopy()
     {
-        $group = UserGroup::find(post("CGid"));
+        $group = UserGroup::find(post('CGid'));
         if (! $group->passage_permissions->count() > 0) {
             return [];
         }
         foreach ($group->passage_permissions as $permission) {
             $funct_lines[] =
-                '$(\'input:checkbox[name="UserGroup[passage_permissions][]"][value="' .
+                '$(\'input:checkbox[name=\'UserGroup[passage_permissions][]\'][value=\'' .
                 $permission->id .
-                '"]\').prop( "checked", true );';
+                '\']\').prop( \'checked\', true );';
         }
 
         return [
-            "#copyGpermissions" =>
+            '#copyGpermissions' =>
                 '
 			<script type="text/javascript">
 			               ' .
-                implode("", $funct_lines) .
+                implode('', $funct_lines) .
                 '
 			</script>
 			',
@@ -57,6 +57,6 @@ class PermissionCopy extends \Winter\Storm\Extension\ExtensionBase
 
     public function onGetGroups()
     {
-        return ["#copyForm" => "fo"];
+        return ['#copyForm' => 'fo'];
     }
 }

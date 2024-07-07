@@ -7,7 +7,7 @@ class PassageServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton("PassageService", function ($app) {
+        $this->app->singleton('PassageService', function ($app) {
             return new \JosephCrowell\Passage\Classes\PermissionsService();
         });
     }

@@ -31,3 +31,4 @@
   - add needed fillable properties
 2.0.2:
   - syntax and documentation fixes
+2.0.3: Comply with new Winter syntax rule regarding double quotes in php files

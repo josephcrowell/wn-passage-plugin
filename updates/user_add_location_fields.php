@@ -8,18 +8,18 @@ class UserAddLocationFields extends Migration
 {
     public function up()
     {
-        if (Schema::hasColumns("users", ["state_id", "country_id"])) {
+        if (Schema::hasColumns('users', ['state_id', 'country_id'])) {
             return;
         }
 
-        Schema::table("users", function ($table) {
+        Schema::table('users', function ($table) {
             $table
-                ->integer("state_id")
+                ->integer('state_id')
                 ->unsigned()
                 ->nullable()
                 ->index();
             $table
-                ->integer("country_id")
+                ->integer('country_id')
                 ->unsigned()
                 ->nullable()
                 ->index();
@@ -28,9 +28,9 @@ class UserAddLocationFields extends Migration
 
     public function down()
     {
-        if (Schema::hasTable("users")) {
-            Schema::table("users", function ($table) {
-                $table->dropColumn(["state_id", "country_id"]);
+        if (Schema::hasTable('users')) {
+            Schema::table('users', function ($table) {
+                $table->dropColumn(['state_id', 'country_id']);
             });
         }
     }

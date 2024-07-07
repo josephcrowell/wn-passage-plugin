@@ -15,11 +15,11 @@ class Override extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = "josephcrowell_passage_overrides";
+    public $table = 'josephcrowell_passage_overrides';
 
     public $rules = [
-        "permission_id" => "required",
-        "user_id" => "required",
+        'permission_id' => 'required',
+        'user_id' => 'required',
     ];
 
     /**
@@ -30,26 +30,26 @@ class Override extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ["*"];
+    protected $fillable = ['*'];
 
     /**
      * @var array Relations
      */
     public $belongsTo = [
-        "permission" => [
-            "JosephCrowell\Passage\Models\Permission",
-            "table" => "josephcrowell_passage_permissions",
-            "key" => "permission_id",
-            "otherkey" => "id",
+        'permission' => [
+            'JosephCrowell\Passage\Models\Permission',
+            'table' => 'josephcrowell_passage_permissions',
+            'key' => 'permission_id',
+            'otherkey' => 'id',
         ],
-        "user" => ["Winter\User\Models\User", "table" => "users", "key" => "user_id", "otherkey" => "id"],
+        'user' => ['Winter\User\Models\User', 'table' => 'users', 'key' => 'user_id', 'otherkey' => 'id'],
     ];
 
     public function __construct(array $attributes = [])
     {
         $this->setRawAttributes(
             [
-                "grant" => true,
+                'grant' => true,
             ],
             true
         );
@@ -61,31 +61,31 @@ class Override extends Model
     {
         $invalid =
             $this->newQuery()
-                ->where("id", "!=", $this->id)
-                ->where("permission_id", $this->permission_id)
-                ->where("user_id", $this->user_id)
+                ->where('id', '!=', $this->id)
+                ->where('permission_id', $this->permission_id)
+                ->where('user_id', $this->user_id)
                 ->count() > 0;
         if ($invalid) {
             throw new ValidationException([
-                "unique_attribute" => Lang::get("josephcrowell.passage::lang.override.error_duplicate"),
+                'unique_attribute' => Lang::get('josephcrowell.passage::lang.override.error_duplicate'),
             ]);
         }
     }
 
     public function getUserIdOptions()
     {
-        $options[0] = Lang::get("josephcrowell.passage::lang.choose_one");
-        $users = User::orderBy("surname")
-            ->orderBy("name")
-            ->get(["surname", "name", "email", "id"]);
+        $options[0] = Lang::get('josephcrowell.passage::lang.choose_one');
+        $users = User::orderBy('surname')
+            ->orderBy('name')
+            ->get(['surname', 'name', 'email', 'id']);
         foreach ($users as $user) {
-            $options[$user->id] = $user->surname . ", " . $user->name . " - " . $user->email;
+            $options[$user->id] = $user->surname . ', ' . $user->name . ' - ' . $user->email;
         }
         return $options;
     }
 
     public function getPermissionIdOptions()
     {
-        return Permission::lists("name", "id");
+        return Permission::lists('name', 'id');
     }
 }
