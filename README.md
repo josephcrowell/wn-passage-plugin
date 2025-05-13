@@ -176,3 +176,14 @@ On a page you may restrict access to a portion of view by using the following tw
 - hasGroup($group_code) - (alias of inGroup())
 - inGroups(array $check_group_codes) - Check an array of passage group ids
 - inGroupNames(array $check_groups) - Check an array of passage group names
+
+<h2>These methods are also available directly on the [Winter\User\Models\User] model</h2>
+
+- $user->hasPermission(integer $permission_id) - Check a passage permission id
+- $user->hasPermissionName($permission_name) - Check a passage permission name
+- $user->hasPermissions(array $check_permission_ids) - Check an array of passage permission ids
+- $user->hasPermissionNames(array $check_permissions) - Check an array of passage permission names
+- $user->inGroup($group_code) - Check a passage group code
+- $user->inGroupName($group_name) - Check a passage group name
+- $user->inGroups(array $check_group_codes) - Check an array of passage group ids
+- $user->inGroupNames(array $check_groups) - Check an array of passage group names
