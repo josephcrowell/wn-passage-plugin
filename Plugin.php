@@ -42,15 +42,141 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        UserGroup::extend(function ($model) {
-            $model->addFillable(['core_group']);
+        User::extend(function ($model) {
+            $model->addDynamicMethod('hasPermission', function (int $permission_id) use ($model) {
+                $add = $subtract = [];
+                $overrides = Override::where("user_id", $model->id)->get(["user_id", "permission_id", "grant"]);
+                foreach ($overrides as $override) {
+                    if ($override->grant) {
+                        $add[] = $override->permission_id;
+                    } else {
+                        $subtract[] = $override->permission_id;
+                    }
+                }
 
-            $model->belongsToMany['passage_permissions'] = [
-                'JosephCrowell\Passage\Models\Permission',
-                'table' => 'josephcrowell_passage_groups_permissions',
-                'key' => 'user_group_id',
-                'otherKey' => 'permission_id',
-                'order' => 'name',
+                $query = Permission::whereHas("groups.users", function ($q) use ($model) {
+                    $q->where("user_id", $model->id);
+                });
+                if ($subtract) {
+                    $query->whereNotIn("id", $subtract);
+                }
+                if ($add) {
+                    $query->orWhereIn("id", $add);
+                }
+                $permissions = $query->lists("name", "id");
+
+                return in_array($permission_id, $permissions);
+            });
+
+            $model->addDynamicMethod('hasPermissionName', function (string $permission_name) use ($model) {
+                $add = $subtract = [];
+                $overrides = Override::where("user_id", $model->id)->get(["user_id", "permission_id", "grant"]);
+                foreach ($overrides as $override) {
+                    if ($override->grant) {
+                        $add[] = $override->permission_id;
+                    } else {
+                        $subtract[] = $override->permission_id;
+                    }
+                }
+
+                $query = Permission::whereHas("groups.users", function ($q) use ($model) {
+                    $q->where("user_id", $model->id);
+                });
+                if ($subtract) {
+                    $query->whereNotIn("id", $subtract);
+                }
+                if ($add) {
+                    $query->orWhereIn("id", $add);
+                }
+                $permissions = $query->lists("name", "id");
+
+                return in_array($permission_name, $permissions);
+            });
+
+            $model->addDynamicMethod('hasPermissions', function (array $check_permission_ids) use ($model) {
+                $add = $subtract = [];
+                $overrides = Override::where("user_id", $model->id)->get(["user_id", "permission_id", "grant"]);
+                foreach ($overrides as $override) {
+                    if ($override->grant) {
+                        $add[] = $override->permission_id;
+                    } else {
+                        $subtract[] = $override->permission_id;
+                    }
+                }
+
+                $query = Permission::whereHas("groups.users", function ($q) use ($model) {
+                    $q->where("user_id", $model->id);
+                });
+                if ($subtract) {
+                    $query->whereNotIn("id", $subtract);
+                }
+                if ($add) {
+                    $query->orWhereIn("id", $add);
+                }
+                $permissions = array_flip($query->lists("name", "id"));
+
+                return count(array_intersect($check_permission_ids, $permissions)) == count($check_permission_ids);
+            });
+
+            $model->addDynamicMethod('hasPermissionNames', function (array $check_permissions) use ($model) {
+                $add = $subtract = [];
+                $overrides = Override::where("user_id", $model->id)->get(["user_id", "permission_id", "grant"]);
+                foreach ($overrides as $override) {
+                    if ($override->grant) {
+                        $add[] = $override->permission_id;
+                    } else {
+                        $subtract[] = $override->permission_id;
+                    }
+                }
+
+                $query = Permission::whereHas("groups.users", function ($q) use ($model) {
+                    $q->where("user_id", $model->id);
+                });
+                if ($subtract) {
+                    $query->whereNotIn("id", $subtract);
+                }
+                if ($add) {
+                    $query->orWhereIn("id", $add);
+                }
+                $permissions = $query->lists("name", "id");
+
+                return count(array_intersect($check_permissions, $permissions)) == count($check_permissions);
+            });
+
+            $model->addDynamicMethod('inGroup', function (string $group_code) use ($model) {
+                $groups = $model->groups->lists("name", "code");
+
+                return array_key_exists($group_code, $groups);
+            });
+
+            $model->addDynamicMethod('inGroupName', function (string $group_name) use ($model) {
+                $groups = $model->groups->lists("name", "code");
+
+                return in_array($group_name, $groups);
+            });
+
+            $model->addDynamicMethod('inGroups', function (array $check_group_codes) use ($model) {
+                $group_codes = array_flip($model->groups->lists("name", "code"));
+
+                return count(array_intersect($check_group_codes, $group_codes)) == count($check_group_codes);
+            });
+
+            $model->addDynamicMethod('inGroupNames', function (array $check_groups) use ($model) {
+                $group_names = $model->groups->lists("name", "code");
+
+                return count(array_intersect($check_groups, $group_names)) == count($check_groups);
+            });
+        });
+
+        UserGroup::extend(function ($model) {
+            $model->addFillable(["core_group"]);
+
+            $model->belongsToMany["passage_permissions"] = [
+                "JosephCrowell\Passage\Models\Permission",
+                "table" => "josephcrowell_passage_groups_permissions",
+                "key" => "user_group_id",
+                "otherKey" => "permission_id",
+                "order" => "name",
             ];
         });
 
